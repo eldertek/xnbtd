@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-17 14:42+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\tours\apps.py:8
+msgid "app_tours_name"
+msgstr "Tournées"
+
+#: .\tours\models.py:5 .\tours\models.py:24 .\tours\models.py:47
+#: .\tours\models.py:70
+msgid "Tour Name"
+msgstr "numéro de tournée"
+
+#: .\tours\models.py:6 .\tours\models.py:25 .\tours\models.py:48
+#: .\tours\models.py:81
+msgid "Tour Date"
+msgstr "date"
+
+#: .\tours\models.py:7
+msgid "Points Charges"
+msgstr "Points chargés"
+
+#: .\tours\models.py:8
+msgid "Points Delivered"
+msgstr "Points livrés"
+
+#: .\tours\models.py:9
+msgid "Packages Charges"
+msgstr "Colis chargés"
+
+#: .\tours\models.py:10
+msgid "Packages Delivered"
+msgstr "Colis livrés"
+
+#: .\tours\models.py:11
+msgid "AVP Relay"
+msgstr "AVP Relais"
+
+#: .\tours\models.py:12
+msgid "SHD"
+msgstr "SHD"
+
+#: .\tours\models.py:13
+msgid "EO"
+msgstr "EO"
+
+#: .\tours\models.py:14
+msgid "Pickup Point"
+msgstr "Point de ramasse"
+
+#: .\tours\models.py:20 .\tours\models.py:21
+msgid "GLS"
+msgstr "GLS"
+
+#: .\tours\models.py:26
+msgid "Charged Packages"
+msgstr "Colis chargé"
+
+#: .\tours\models.py:27
+msgid "Charged Points"
+msgstr "Points chargés"
+
+#: .\tours\models.py:28
+msgid "Including IP"
+msgstr "Dont IP"
+
+#: .\tours\models.py:29
+msgid "Relay"
+msgstr "Relais"
+
+#: .\tours\models.py:30
+msgid "Return Packages"
+msgstr "Retour COLIS"
+
+#: .\tours\models.py:31
+msgid "Return Points"
+msgstr "Retour POINTS"
+
+#: .\tours\models.py:32
+msgid "Overdue"
+msgstr "HORS DELAIS"
+
+#: .\tours\models.py:33
+msgid "Anomalies"
+msgstr "Anomalies"
+
+#: .\tours\models.py:34
+msgid "Total Points"
+msgstr "TOTAL POINTS"
+
+#: .\tours\models.py:35
+msgid "Hours"
+msgstr "heures"
+
+#: .\tours\models.py:36
+msgid "Breaks"
+msgstr "pauses"
+
+#: .\tours\models.py:37
+msgid "Full KM"
+msgstr "Plein / KM"
+
+#: .\tours\models.py:43 .\tours\models.py:44
+msgid "Chronopost"
+msgstr "Chronopost"
+
+#: .\tours\models.py:49
+msgid "Client numbers"
+msgstr "Nombres clients"
+
+#: .\tours\models.py:50
+msgid "Refused"
+msgstr "refuse"
+
+#: .\tours\models.py:51 .\tours\models.py:84
+msgid "avp"
+msgstr "avp"
+
+#: .\tours\models.py:52
+msgid "cad/return"
+msgstr "cad/retour"
+
+#: .\tours\models.py:53
+#, fuzzy
+#| msgid "Client Name"
+msgid "totals clients"
+msgstr "totals client"
+
+#: .\tours\models.py:54
+msgid "occasional abductions"
+msgstr "enlèvements occasionnels"
+
+#: .\tours\models.py:55
+msgid "regular abductions"
+msgstr "enlèvements réguliers"
+
+#: .\tours\models.py:56
+msgid "total clients abductions"
+msgstr "totals clients enlèvements"
+
+#: .\tours\models.py:57
+msgid "hours"
+msgstr "heures"
+
+#: .\tours\models.py:58
+msgid "breaks"
+msgstr "pauses"
+
+#: .\tours\models.py:59
+msgid "KM/Full"
+msgstr "KM/Plein"
+
+#: .\tours\models.py:66 .\tours\models.py:67
+msgid "TNT - Fedex"
+msgstr "TNT - Fedex"
+
+#: .\tours\models.py:82
+msgid "nights"
+msgstr "nuits"
+
+#: .\tours\models.py:83
+msgid "days"
+msgstr "jours"
+
+#: .\tours\models.py:85
+msgid "spare part"
+msgstr "spare part"
+
+#: .\tours\models.py:86
+msgid "synchro"
+msgstr "synchro"
+
+#: .\tours\models.py:87
+msgid "morning pickups"
+msgstr "ramassages matin"
+
+#: .\tours\models.py:93 .\tours\models.py:94
+msgid "Ciblex"
+msgstr "Ciblex"
+
+#~ msgid "TNT"
+#~ msgstr "TNT"
+
+#~ msgid "Deliveries"
+#~ msgstr "Livraisons"
+
+#~ msgid "Client Tour"
+#~ msgstr "Numéro de tournée"

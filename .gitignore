@@ -1,0 +1,13 @@
+.*
+coverage.json
+!.github
+!.editorconfig
+!.flake8
+!.gitignore
+__pycache__
+*.sqlite3
+publish.log
+secret.txt
+/coverage.xml
+/htmlcov/
+/dist/
