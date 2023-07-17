@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "xnbtd"
 version = "0.0.1"
-description = "xnbtd is an open-source digital signage system for high schools."
+description = "xNBTD est une application de gestion pour entreprise de livraison. Elle facilite la gestion des tournées et des plannings."
 authors = [
     "André Théo LAURET <andrelauret@eclipse-technology.eu>",
 ]
