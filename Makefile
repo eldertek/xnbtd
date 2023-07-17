@@ -51,8 +51,8 @@ tox: check-poetry ## Run tests via tox with all environments
 test: install  ## Run tests
 	DJANGO_SETTINGS_MODULE=xnbtd.settings.test poetry run python -Wa manage.py test -v 2
 
-local-test: install  ## Run local_test.py to run the project locally
-	./manage.sh run_testserver
+local-test: install  ## Run the project locally
+	./manage.sh runserver
 
 local-diff-settings:  ## Run "manage.py diffsettings"
 	./manage.sh diffsettings

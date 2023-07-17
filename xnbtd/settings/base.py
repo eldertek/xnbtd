@@ -58,8 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tours.apps.ToursConfig',
-    'plannings.apps.PlanningsConfig',
+    'xnbtd.tours.apps.ToursConfig',
+    'xnbtd.plannings.apps.PlanningsConfig',
 ]
 
 ROOT_URLCONF = 'xnbtd.urls'
