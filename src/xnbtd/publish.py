@@ -10,7 +10,7 @@ from poetry_publish.utils.subprocess_utils import verbose_check_call
 import xnbtd
 
 
-PACKAGE_ROOT = Path(xnbtd.__file__).parent.parent
+PACKAGE_ROOT = Path(xnbtd.__file__).parent.parent.parent
 
 
 def publish():
