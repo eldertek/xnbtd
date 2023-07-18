@@ -2,12 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 10:55+0000\n"
+"POT-Creation-Date: 2023-07-18 14:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: xnbtd/plannings/apps.py:8
-msgid "app_plannings_name"
-msgstr "Calendrier"
+#: xnbtd/templates/admin/index.html:23
+msgid "Upcoming events"
+msgstr "Évènements à venir"
 
-#: xnbtd/plannings/models.py:6
-msgid "Date"
-msgstr "date"
-
-#: xnbtd/plannings/models.py:7
-msgid "Title"
-msgstr "titre"
-
-#: xnbtd/plannings/models.py:13
-msgid "Event"
-msgstr "évènement"
-
-#: xnbtd/plannings/models.py:14
-msgid "Events"
-msgstr "évènements"
+#: xnbtd/templates/admin/index.html:27
+msgid "None available"
+msgstr "Aucun évènement à venir"

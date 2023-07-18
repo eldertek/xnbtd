@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xnbtd"
-version = "0.0.4"
+version = "0.0.5"
 description = "xNBTD est une application de gestion pour entreprise de livraison. Elle facilite la gestion des tournées et des plannings."
 authors = [
     "André Théo LAURET <andrelauret@eclipse-technology.eu>",
@@ -20,6 +20,7 @@ packages = [{ include = "xnbtd" }]
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)
 pip = "^23.1.2"
+django-import-export = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 django_yunohost_integration = "*"  # https://github.com/YunoHost-Apps/django_yunohost_integration

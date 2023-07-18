@@ -52,14 +52,15 @@ SECRET_KEY = __SECRET_FILE.read_text().strip()
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'xnbtd.apps.xNBTDConfig',
     'xnbtd.tours.apps.ToursConfig',
     'xnbtd.plannings.apps.PlanningsConfig',
+    'import_export',
 ]
 
 ROOT_URLCONF = 'xnbtd.urls'
@@ -80,7 +81,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [str(__Path(BASE_PATH, 'xnbtd', 'templates'))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
