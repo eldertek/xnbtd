@@ -20,11 +20,11 @@
 {% block sidebar %}
 <div id="content-related">
     <div class="module" id="recent-events-module">
-        <h2>{% translate 'Upcoming events' %}</h2>
+        <h2>Évènements à venir</h2>
         {% load events %}
         {% get_upcoming_events 10 as upcoming_events %}
         {% if not upcoming_events %}
-            <p>{% translate 'None available' %}</p>
+            <p>Aucun évènement à venir</p>
         {% else %}
             <ul class="actionlist">
                 {% for event in upcoming_events %}
