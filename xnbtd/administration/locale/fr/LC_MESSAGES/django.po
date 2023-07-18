@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-18 14:50+0000\n"
+"POT-Creation-Date: 2023-07-18 16:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: xnbtd/templates/admin/index.html:23
+#: xnbtd/administration/templates/xnbtd/admin/index.html:23
 msgid "Upcoming events"
 msgstr "Évènements à venir"
 
-#: xnbtd/templates/admin/index.html:27
+#: xnbtd/administration/templates/xnbtd/admin/index.html:27
 msgid "None available"
 msgstr "Aucun évènement à venir"
