@@ -1,6 +1,7 @@
-
 from datetime import datetime, timedelta
+
 from django import template
+
 from xnbtd.plannings.models import Event
 
 
