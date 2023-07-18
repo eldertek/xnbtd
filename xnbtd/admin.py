@@ -5,4 +5,4 @@ class xNBTDAdmin(admin.AdminSite):
     site_header = "NBTD Transport"
     site_title = "Portail - NBTD Transport"
     index_title = "Bienvenue sur le portail des services de NBTD Transport"
-    index_template = "admin/index.html"
+    index_template = "xnbtd/admin/index.html"
