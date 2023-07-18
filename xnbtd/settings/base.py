@@ -81,7 +81,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(__Path(BASE_PATH, 'xnbtd', 'templates'))],
+        "DIRS": [str(__Path(BASE_PATH, 'templates'))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
