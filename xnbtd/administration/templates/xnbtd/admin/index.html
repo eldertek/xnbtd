@@ -22,19 +22,22 @@
     <div class="module" id="recent-events-module">
         <h2>Évènements à venir</h2>
         {% load events %}
-        {% get_upcoming_events 10 as upcoming_events %}
+        {% get_upcoming_events_grouped 10 as upcoming_events %}
         {% if not upcoming_events %}
             <p>Aucun évènement à venir</p>
         {% else %}
             <ul class="actionlist">
-                {% for event in upcoming_events %}
-                    <li class="eventlink">
-                        <a href="{% url 'admin:plannings_event_change' event.id %}">
-                            {{ event.title }}
-                        </a>
-                        <br>
-                        <span class="mini quiet">{{ event.date }}</span>
-                    </li>
+                {% for date, events in upcoming_events.items %}
+                    <h3 style="padding: 0px; margin: 0px; margin-bottom: 8px;">{{ date }}</h3>
+                    <ul style="margin-left: 0px; ">
+                        {% for event in events %}
+                            <li style="padding-left: 0px; margin-bottom: 0px;">
+                                <a href="{% url 'admin:plannings_event_change' event.id %}">
+                                    - {{ event.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 {% endfor %}
             </ul>
         {% endif %}
