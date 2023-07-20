@@ -24,6 +24,8 @@ class GLSResource(resources.ModelResource):
     shd = resources.Field(attribute='shd', column_name=_('shd'))
     eo = resources.Field(attribute='eo', column_name=_('eo'))
     pickup_point = resources.Field(attribute='pickup_point', column_name=_('pickup_point'))
+    beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
+    ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
 
     class Meta:
         model = GLS
@@ -47,9 +49,10 @@ class TNTResource(resources.ModelResource):
     totals_clients_abductions = resources.Field(
         attribute='totals_clients_abductions', column_name=_('totals_clients_abductions')
     )
-    hours = resources.Field(attribute='hours', column_name=_('hours'))
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     kilometers = resources.Field(attribute='kilometers', column_name=_('kilometers'))
+    beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
+    ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
 
     class Meta:
         model = TNT
@@ -70,9 +73,10 @@ class ChronopostResource(resources.ModelResource):
     overdue = resources.Field(attribute='overdue', column_name=_('overdue'))
     anomalies = resources.Field(attribute='anomalies', column_name=_('anomalies'))
     total_points = resources.Field(attribute='total_points', column_name=_('total_points'))
-    hours = resources.Field(attribute='hours', column_name=_('hours'))
-    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     full_km = resources.Field(attribute='full_km', column_name=_('full_km'))
+    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
+    beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
+    ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
 
     class Meta:
         model = Chronopost
@@ -90,6 +94,8 @@ class CiblexResource(resources.ModelResource):
     spare_part = resources.Field(attribute='spare_part', column_name=_('spare_part'))
     synchro = resources.Field(attribute='synchro', column_name=_('synchro'))
     morning_pickup = resources.Field(attribute='morning_pickup', column_name=_('morning_pickup'))
+    beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
+    ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
 
     class Meta:
         model = Ciblex
@@ -108,6 +114,8 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'shd',
         'eo',
         'pickup_point',
+        'beginning_hour',
+        'ending_hour',
     )
     list_filter = ('date', 'name')
 
@@ -125,9 +133,10 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'occasional_abductions',
         'regular_abductions',
         'totals_clients_abductions',
-        'hours',
         'breaks',
         'kilometers',
+        'beginning_hour',
+        'ending_hour',
     )
     list_filter = ('date', 'name')
 
@@ -146,9 +155,10 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
         'overdue',
         'anomalies',
         'total_points',
-        'hours',
-        'breaks',
         'full_km',
+        'breaks',
+        'beginning_hour',
+        'ending_hour',
     )
     list_filter = ('date', 'name')
 
@@ -166,6 +176,8 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'spare_part',
         'synchro',
         'morning_pickup',
+        'beginning_hour',
+        'ending_hour',
     )
     list_filter = ('date', 'name', 'code')
 

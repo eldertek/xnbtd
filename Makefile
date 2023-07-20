@@ -52,6 +52,7 @@ test: install  ## Run tests
 	DJANGO_SETTINGS_MODULE=xnbtd.settings.test poetry run python -Wa manage.py test -v 2
 
 local-test: install  ## Run the project locally
+	./manage.sh migrate
 	./manage.sh runserver
 
 local-diff-settings:  ## Run "manage.py diffsettings"

@@ -13,6 +13,16 @@ class GLS(models.Model):
     shd = models.IntegerField(verbose_name=_('SHD'))
     eo = models.IntegerField(verbose_name=_('EO'))
     pickup_point = models.IntegerField(verbose_name=_('Pickup Point'))
+    breaks = models.TimeField(verbose_name=_('Breaks'))
+
+    beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
+    ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+
+    def elapsed_time_hours(self):
+        if self.beginning_hour and self.ending_hour:
+            elapsed_time = self.ending_hour - self.beginning_hour
+            return elapsed_time.total_seconds() / 3600
+        return None
 
     def __str__(self):
         return self.name
@@ -34,9 +44,16 @@ class Chronopost(models.Model):
     overdue = models.IntegerField(verbose_name=_('Overdue'))
     anomalies = models.IntegerField(verbose_name=_('Anomalies'))
     total_points = models.IntegerField(verbose_name=_('Total Points'))
-    hours = models.IntegerField(verbose_name=_('Hours'))
-    breaks = models.IntegerField(verbose_name=_('Breaks'))
     full_km = models.IntegerField(verbose_name=_('Full KM'))
+    breaks = models.TimeField(verbose_name=_('Breaks'))
+
+    beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
+    ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+
+    def elapsed_time_hours(self):
+        if self.beginning_hour and self.ending_hour:
+            elapsed_time = self.ending_hour - self.beginning_hour
+            return elapsed_time.total_seconds() / 3600
 
     def __str__(self):
         return self.name
@@ -57,9 +74,16 @@ class TNT(models.Model):
     occasional_abductions = models.IntegerField(verbose_name=_('occasional abductions'))
     regular_abductions = models.IntegerField(verbose_name=_('regular abductions'))
     totals_clients_abductions = models.IntegerField(verbose_name=_('total clients abductions'))
-    hours = models.IntegerField(verbose_name=_('hours'))
-    breaks = models.IntegerField(verbose_name=_('breaks'))
     kilometers = models.IntegerField(verbose_name=_('KM/Full'))
+    breaks = models.IntegerField(verbose_name=_('breaks'))
+
+    beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
+    ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+
+    def elapsed_time_hours(self):
+        if self.beginning_hour and self.ending_hour:
+            elapsed_time = self.ending_hour - self.beginning_hour
+            return elapsed_time.total_seconds() / 3600
 
     def __str__(self):
         return self.name
@@ -88,6 +112,15 @@ class Ciblex(models.Model):
     spare_part = models.IntegerField(verbose_name=_('spare part'))
     synchro = models.IntegerField(verbose_name=_('synchro'))
     morning_pickup = models.IntegerField(verbose_name=_('morning pickups'))
+    breaks = models.TimeField(verbose_name=_('Breaks'))
+
+    beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
+    ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+
+    def elapsed_time_hours(self):
+        if self.beginning_hour and self.ending_hour:
+            elapsed_time = self.ending_hour - self.beginning_hour
+            return elapsed_time.total_seconds() / 3600
 
     def __str__(self):
         return str(self.date)
