@@ -1,0 +1,46 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-events-module">
+        <h2>Évènements à venir</h2>
+        {% load events %}
+        {% get_upcoming_events_grouped 10 as upcoming_events %}
+        {% if not upcoming_events %}
+            <p>Aucun évènement à venir</p>
+        {% else %}
+            <ul class="actionlist">
+                {% for date, events in upcoming_events.items %}
+                    <h3 style="padding: 0px; margin: 0px; margin-bottom: 8px;">{{ date }}</h3>
+                    <ul style="margin-left: 0px; ">
+                        {% for event in events %}
+                            <li style="padding-left: 0px; margin-bottom: 0px;">
+                                <a href="{% url 'admin:plannings_event_change' event.id %}">
+                                    - {{ event.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -57,6 +57,10 @@ local-test: install  ## Run the project locally
 local-diff-settings:  ## Run "manage.py diffsettings"
 	./manage.sh diffsettings
 
+messages:  ## Run "manage.py makemessages"
+	./manage.sh makemessages -l fr
+	./manage.sh compilemessages --ignore=.venv
+
 migrate: install  ## Run "manage.py migrate"
 	./manage.sh makemigrations
 	./manage.sh migrate

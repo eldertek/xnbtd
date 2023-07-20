@@ -52,14 +52,15 @@ SECRET_KEY = __SECRET_FILE.read_text().strip()
 # Application definition
 
 INSTALLED_APPS = [
-    'xnbtd.administration.apps.AdministrationConfig',
-    'xnbtd.tours.apps.ToursConfig',
-    'xnbtd.plannings.apps.PlanningsConfig',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'xnbtd',
+    'xnbtd.tours.apps.ToursConfig',
+    'xnbtd.plannings.apps.PlanningsConfig',
     'import_export',
 ]
 
@@ -81,7 +82,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(__Path(PROJECT_PATH, 'xnbtd', 'administration', 'templates'))],
+        "DIRS": [str(__Path(PROJECT_PATH, 'xnbtd', 'templates'))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -181,7 +182,7 @@ LANGUAGES = [
 
 LANGUAGE_CODE = "en"
 
-LOCALE_PATHS = [BASE_PATH / 'locale']
+LOCALE_PATHS = [PROJECT_PATH / 'locale']
 
 TIME_ZONE = "UTC"
 

@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 from django.utils.translation import gettext_lazy as _
 
 
@@ -17,12 +18,20 @@ class GLS(models.Model):
 
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+    total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
 
     def elapsed_time_hours(self):
         if self.beginning_hour and self.ending_hour:
-            elapsed_time = self.ending_hour - self.beginning_hour
+            begin_datetime = datetime.combine(self.date, self.beginning_hour)
+            end_datetime = datetime.combine(self.date, self.ending_hour)
+
+            elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
         return None
+
+    def save(self, *args, **kwargs):
+        self.total_hour = self.elapsed_time_hours()
+        super(GLS, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -49,11 +58,20 @@ class Chronopost(models.Model):
 
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+    total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
 
     def elapsed_time_hours(self):
         if self.beginning_hour and self.ending_hour:
-            elapsed_time = self.ending_hour - self.beginning_hour
+            begin_datetime = datetime.combine(self.date, self.beginning_hour)
+            end_datetime = datetime.combine(self.date, self.ending_hour)
+
+            elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
+        return None
+  
+    def save(self, *args, **kwargs):
+        self.total_hour = self.elapsed_time_hours()
+        super(Chronopost, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -75,15 +93,24 @@ class TNT(models.Model):
     regular_abductions = models.IntegerField(verbose_name=_('regular abductions'))
     totals_clients_abductions = models.IntegerField(verbose_name=_('total clients abductions'))
     kilometers = models.IntegerField(verbose_name=_('KM/Full'))
-    breaks = models.IntegerField(verbose_name=_('breaks'))
+    breaks = models.TimeField(verbose_name=_('breaks'))
 
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+    total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
 
     def elapsed_time_hours(self):
         if self.beginning_hour and self.ending_hour:
-            elapsed_time = self.ending_hour - self.beginning_hour
+            begin_datetime = datetime.combine(self.date, self.beginning_hour)
+            end_datetime = datetime.combine(self.date, self.ending_hour)
+
+            elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
+        return None
+        
+    def save(self, *args, **kwargs):
+        self.total_hour = self.elapsed_time_hours()
+        super(TNT, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -116,11 +143,20 @@ class Ciblex(models.Model):
 
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+    total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
 
     def elapsed_time_hours(self):
         if self.beginning_hour and self.ending_hour:
-            elapsed_time = self.ending_hour - self.beginning_hour
+            begin_datetime = datetime.combine(self.date, self.beginning_hour)
+            end_datetime = datetime.combine(self.date, self.ending_hour)
+
+            elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
+        return None
+    
+    def save(self, *args, **kwargs):
+        self.total_hour = self.elapsed_time_hours()
+        super(Ciblex, self).save(*args, **kwargs)
 
     def __str__(self):
         return str(self.date)

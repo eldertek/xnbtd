@@ -1,10 +1,13 @@
 from django.contrib import admin
+from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 from import_export import resources
 from import_export.admin import ExportMixin
 
 from .models import GLS, TNT, Chronopost, Ciblex
 
+
+# Resource classes for import_export
 
 class GLSResource(resources.ModelResource):
     id = resources.Field(attribute='id')
@@ -26,6 +29,7 @@ class GLSResource(resources.ModelResource):
     pickup_point = resources.Field(attribute='pickup_point', column_name=_('pickup_point'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
+    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
 
     class Meta:
         model = GLS
@@ -53,6 +57,7 @@ class TNTResource(resources.ModelResource):
     kilometers = resources.Field(attribute='kilometers', column_name=_('kilometers'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
+    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
 
     class Meta:
         model = TNT
@@ -77,6 +82,7 @@ class ChronopostResource(resources.ModelResource):
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
+    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
 
     class Meta:
         model = Chronopost
@@ -96,13 +102,17 @@ class CiblexResource(resources.ModelResource):
     morning_pickup = resources.Field(attribute='morning_pickup', column_name=_('morning_pickup'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
+    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
 
     class Meta:
         model = Ciblex
 
 
+# Admin classes
+
 class GLSAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = GLSResource
+    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'date',
@@ -116,12 +126,22 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'pickup_point',
         'beginning_hour',
         'ending_hour',
+        'total_hour'
     )
     list_filter = ('date', 'name')
+    list_statistic = ('total_hour',)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['list_statistic'] = self.list_statistic
+        return super().changelist_view(request, extra_context=extra_context)
+
+    change_list_template = 'xnbtd/admin/change_list.html'
 
 
 class TNTAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = TNTResource
+    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'date',
@@ -137,12 +157,22 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'kilometers',
         'beginning_hour',
         'ending_hour',
+        'total_hour'
     )
     list_filter = ('date', 'name')
+    list_statistic = ('total_hour',)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['list_statistic'] = self.list_statistic
+        return super().changelist_view(request, extra_context=extra_context)
+
+    change_list_template = 'xnbtd/admin/change_list.html'
 
 
 class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = ChronopostResource
+    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'date',
@@ -159,12 +189,22 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
+        'total_hour'
     )
     list_filter = ('date', 'name')
+    list_statistic = ('total_hour',)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['list_statistic'] = self.list_statistic
+        return super().changelist_view(request, extra_context=extra_context)
+
+    change_list_template = 'xnbtd/admin/change_list.html'
 
 
 class CiblexAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = CiblexResource
+    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'date',
@@ -178,8 +218,17 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'morning_pickup',
         'beginning_hour',
         'ending_hour',
+        'total_hour'
     )
     list_filter = ('date', 'name', 'code')
+    list_statistic = ('total_hour',)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['list_statistic'] = self.list_statistic
+        return super().changelist_view(request, extra_context=extra_context)
+
+    change_list_template = 'xnbtd/admin/change_list.html'
 
 
 admin.site.register(GLS, GLSAdmin)
