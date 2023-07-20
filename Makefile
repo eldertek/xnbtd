@@ -52,11 +52,14 @@ test: install  ## Run tests
 	DJANGO_SETTINGS_MODULE=xnbtd.settings.test poetry run python -Wa manage.py test -v 2
 
 local-test: install  ## Run the project locally
-	./manage.sh migrate
 	./manage.sh runserver
 
 local-diff-settings:  ## Run "manage.py diffsettings"
 	./manage.sh diffsettings
+
+migrate: install  ## Run "manage.py migrate"
+	./manage.sh makemigrations
+	./manage.sh migrate
 
 safety:  ## Run https://github.com/pyupio/safety
 	poetry run safety check --full-report
