@@ -27,6 +27,7 @@ class GLSResource(resources.ModelResource):
     shd = resources.Field(attribute='shd', column_name=_('shd'))
     eo = resources.Field(attribute='eo', column_name=_('eo'))
     pickup_point = resources.Field(attribute='pickup_point', column_name=_('pickup_point'))
+    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
@@ -53,8 +54,8 @@ class TNTResource(resources.ModelResource):
     totals_clients_abductions = resources.Field(
         attribute='totals_clients_abductions', column_name=_('totals_clients_abductions')
     )
-    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     kilometers = resources.Field(attribute='kilometers', column_name=_('kilometers'))
+    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
@@ -100,6 +101,7 @@ class CiblexResource(resources.ModelResource):
     spare_part = resources.Field(attribute='spare_part', column_name=_('spare_part'))
     synchro = resources.Field(attribute='synchro', column_name=_('synchro'))
     morning_pickup = resources.Field(attribute='morning_pickup', column_name=_('morning_pickup'))
+    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
@@ -124,12 +126,13 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'shd',
         'eo',
         'pickup_point',
+        'breaks',
         'beginning_hour',
         'ending_hour',
         'total_hour'
     )
     list_filter = ('date', 'name')
-    list_statistic = ('total_hour',)
+    list_statistic = ('total_hour', 'breaks')
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -153,14 +156,14 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'occasional_abductions',
         'regular_abductions',
         'totals_clients_abductions',
-        'breaks',
         'kilometers',
+        'breaks',
         'beginning_hour',
         'ending_hour',
         'total_hour'
     )
     list_filter = ('date', 'name')
-    list_statistic = ('total_hour',)
+    list_statistic = ('total_hour', 'breaks')
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -192,7 +195,7 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
         'total_hour'
     )
     list_filter = ('date', 'name')
-    list_statistic = ('total_hour',)
+    list_statistic = ('total_hour', 'breaks')
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -216,12 +219,13 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'spare_part',
         'synchro',
         'morning_pickup',
+        'breaks',
         'beginning_hour',
         'ending_hour',
         'total_hour'
     )
     list_filter = ('date', 'name', 'code')
-    list_statistic = ('total_hour',)
+    list_statistic = ('total_hour', 'breaks')
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
