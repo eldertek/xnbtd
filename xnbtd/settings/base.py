@@ -52,15 +52,15 @@ SECRET_KEY = __SECRET_FILE.read_text().strip()
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'xnbtd.apps.XnbtdConfig',
+    'xnbtd.apps.XnbtdAdminConfig',
+    'xnbtd.tours.apps.ToursConfig',
+    'xnbtd.plannings.apps.PlanningsConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'xnbtd',
-    'xnbtd.tours.apps.ToursConfig',
-    'xnbtd.plannings.apps.PlanningsConfig',
     'import_export',
 ]
 

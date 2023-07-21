@@ -1,14 +1,16 @@
 {% extends "admin/change_list.html" %}
 {% load i18n admin_list tours %}
 
-
 {% block filters %}
   {% if cl.has_filters %}
     <div id="changelist-filter">
       <h2>{% translate 'Statistic' %}</h2>  
-      {% for column, label in list_statistic %}
-        <h3>{{ label }}: {% calculate_total cl.result_list column %}</h3>
-      {% endfor %}
+        {% for column, label in list_statistic %}
+          {% calculate_total cl.result_list column as total %}
+          {% if total is not None %}
+            <h3>{{ label }}: {{ total }}</h3>
+          {% endif %}
+        {% endfor %}
       <h2>{% translate 'Filter' %}</h2>
       {% if cl.is_facets_optional or cl.has_active_filters %}
         <div id="changelist-filter-extra-actions">

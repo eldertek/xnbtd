@@ -170,6 +170,7 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
+        ('totals_clients', _('Total Clients')),
     ]
 
     def changelist_view(self, request, extra_context=None):
@@ -205,7 +206,7 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
-        ('total_points', _('Total Points')),
+        ('total_points', _('Total of Points')),
     ]
 
     def changelist_view(self, request, extra_context=None):
@@ -239,6 +240,7 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
+        ('days', _('Total Days'))
     ]
 
     def changelist_view(self, request, extra_context=None):

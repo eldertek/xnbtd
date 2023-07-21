@@ -1,8 +1,6 @@
 from datetime import timedelta
-
 from django import template
 from django.db.models import Sum
-
 
 register = template.Library()
 
@@ -16,7 +14,7 @@ def calculate_total(queryset, column):
         column (str): The column for which the total is being calculated.
 
     Returns:
-        float: The total of the column
+        float: The total of the column rounded to two decimal places
     """
     if queryset.exists():
         model_class = queryset.model
@@ -24,7 +22,7 @@ def calculate_total(queryset, column):
 
         if field_type in ('IntegerField', 'FloatField'):
             total = queryset.aggregate(total=Sum(column)).get('total')
-            return total
+            return round(total, 2)
         elif field_type == 'TimeField':
             total_time = timedelta()
 
@@ -33,8 +31,8 @@ def calculate_total(queryset, column):
                 if value:
                     total_time += timedelta(hours=value.hour, minutes=value.minute, seconds=value.second)
 
-            # Calculate total hours and return
+            # Calculate total hours and round to 2 decimal places
             total_hours = total_time.total_seconds() / 3600
-            return total_hours
+            return round(total_hours, 2)
 
     return None
