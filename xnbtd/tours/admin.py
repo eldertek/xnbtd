@@ -135,6 +135,7 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
+        ('packages_delivered', _('Total Packages Delivered')),
     ]
 
     def changelist_view(self, request, extra_context=None):
@@ -204,6 +205,7 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
+        ('total_points', _('Total Points')),
     ]
 
     def changelist_view(self, request, extra_context=None):

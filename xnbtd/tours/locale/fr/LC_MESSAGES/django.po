@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-21 07:48+0000\n"
+"POT-Creation-Date: 2023-07-21 08:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,15 +186,23 @@ msgstr "synchro"
 msgid "morning_pickup"
 msgstr "ramassages matin"
 
-#: xnbtd/tours/admin.py:136 xnbtd/tours/admin.py:172 xnbtd/tours/admin.py:207
-#: xnbtd/tours/admin.py:240
+#: xnbtd/tours/admin.py:136 xnbtd/tours/admin.py:171 xnbtd/tours/admin.py:207
+#: xnbtd/tours/admin.py:241
 msgid "Total Work Hours"
 msgstr "Total d’heures de travail"
 
-#: xnbtd/tours/admin.py:137 xnbtd/tours/admin.py:173 xnbtd/tours/admin.py:208
-#: xnbtd/tours/admin.py:241
+#: xnbtd/tours/admin.py:137 xnbtd/tours/admin.py:172 xnbtd/tours/admin.py:208
+#: xnbtd/tours/admin.py:242
 msgid "Total Break Hours"
 msgstr "Total d’heures de pause"
+
+#: xnbtd/tours/admin.py:138
+msgid "Total Packages Delivered"
+msgstr "Total colis livrés"
+
+#: xnbtd/tours/admin.py:209 xnbtd/tours/models.py:55
+msgid "Total Points"
+msgstr "Total points"
 
 #: xnbtd/tours/apps.py:8
 msgid "app_tours_name"
@@ -296,10 +304,6 @@ msgstr "HORS DELAIS"
 #: xnbtd/tours/models.py:54
 msgid "Anomalies"
 msgstr "Anomalies"
-
-#: xnbtd/tours/models.py:55
-msgid "Total Points"
-msgstr "TOTAL POINTS"
 
 #: xnbtd/tours/models.py:56
 msgid "Full KM"
