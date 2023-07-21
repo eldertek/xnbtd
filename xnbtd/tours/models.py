@@ -69,7 +69,7 @@ class Chronopost(models.Model):
             elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
         return None
-  
+
     def save(self, *args, **kwargs):
         self.total_hour = self.elapsed_time_hours()
         super(Chronopost, self).save(*args, **kwargs)
@@ -108,7 +108,7 @@ class TNT(models.Model):
             elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
         return None
-        
+
     def save(self, *args, **kwargs):
         self.total_hour = self.elapsed_time_hours()
         super(TNT, self).save(*args, **kwargs)
@@ -154,7 +154,7 @@ class Ciblex(models.Model):
             elapsed_time = end_datetime - begin_datetime
             return elapsed_time.total_seconds() / 3600
         return None
-    
+
     def save(self, *args, **kwargs):
         self.total_hour = self.elapsed_time_hours()
         super(Ciblex, self).save(*args, **kwargs)

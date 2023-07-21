@@ -1,5 +1,6 @@
 from django.db import migrations
 
+
 def add_groups_and_permissions(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
@@ -15,6 +16,7 @@ def add_groups_and_permissions(apps, schema_editor):
         group = Group.objects.create(name=data['name'])
         permissions = Permission.objects.filter(pk__in=data['permissions'])
         group.permissions.set(permissions)
+
 
 class Migration(migrations.Migration):
 
