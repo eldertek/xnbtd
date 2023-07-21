@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-20 14:41+0000\n"
+"POT-Creation-Date: 2023-07-21 07:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: xnbtd/tours/admin.py:14 xnbtd/tours/admin.py:40 xnbtd/tours/admin.py:68
-#: xnbtd/tours/admin.py:93
+#: xnbtd/tours/admin.py:14 xnbtd/tours/admin.py:41 xnbtd/tours/admin.py:69
+#: xnbtd/tours/admin.py:94
 msgid "name"
 msgstr "nom"
 
-#: xnbtd/tours/admin.py:15 xnbtd/tours/admin.py:41 xnbtd/tours/admin.py:69
-#: xnbtd/tours/admin.py:94
+#: xnbtd/tours/admin.py:15 xnbtd/tours/admin.py:42 xnbtd/tours/admin.py:70
+#: xnbtd/tours/admin.py:95
 msgid "date"
 msgstr "date"
 
@@ -60,130 +60,141 @@ msgid "pickup_point"
 msgstr "point de ramasse"
 
 #: xnbtd/tours/admin.py:30 xnbtd/tours/admin.py:58 xnbtd/tours/admin.py:83
-#: xnbtd/tours/admin.py:103
+#: xnbtd/tours/admin.py:104 xnbtd/tours/models.py:96
+msgid "breaks"
+msgstr "pauses"
+
+#: xnbtd/tours/admin.py:31 xnbtd/tours/admin.py:59 xnbtd/tours/admin.py:84
+#: xnbtd/tours/admin.py:105
 msgid "beginning_hour"
 msgstr "début de la tournée"
 
-#: xnbtd/tours/admin.py:31 xnbtd/tours/admin.py:59 xnbtd/tours/admin.py:84
-#: xnbtd/tours/admin.py:104
+#: xnbtd/tours/admin.py:32 xnbtd/tours/admin.py:60 xnbtd/tours/admin.py:85
+#: xnbtd/tours/admin.py:106
 msgid "ending_hour"
 msgstr "fin de la tournée"
 
-#: xnbtd/tours/admin.py:32 xnbtd/tours/admin.py:60 xnbtd/tours/admin.py:85
-#: xnbtd/tours/admin.py:105
+#: xnbtd/tours/admin.py:33 xnbtd/tours/admin.py:61 xnbtd/tours/admin.py:86
+#: xnbtd/tours/admin.py:107
 #, fuzzy
 #| msgid "Total Hour"
 msgid "total_hour"
 msgstr "Durée de la tournée"
 
-#: xnbtd/tours/admin.py:42
+#: xnbtd/tours/admin.py:43
 msgid "client_numbers"
 msgstr "nombres clients"
 
-#: xnbtd/tours/admin.py:43
+#: xnbtd/tours/admin.py:44
 msgid "refused"
 msgstr "refuse"
 
-#: xnbtd/tours/admin.py:44 xnbtd/tours/admin.py:99 xnbtd/tours/models.py:89
+#: xnbtd/tours/admin.py:45 xnbtd/tours/admin.py:100 xnbtd/tours/models.py:89
 #: xnbtd/tours/models.py:138
 msgid "avp"
 msgstr "avp"
 
-#: xnbtd/tours/admin.py:45
+#: xnbtd/tours/admin.py:46
 msgid "cad"
 msgstr "cad"
 
-#: xnbtd/tours/admin.py:46
+#: xnbtd/tours/admin.py:47
 msgid "totals_clients"
 msgstr "totals client"
 
-#: xnbtd/tours/admin.py:48
+#: xnbtd/tours/admin.py:49
 msgid "occasional_abductions"
 msgstr "enlèvements occasionnels"
 
-#: xnbtd/tours/admin.py:51
+#: xnbtd/tours/admin.py:52
 msgid "regular_abductions"
 msgstr "enlèvements réguliers"
 
-#: xnbtd/tours/admin.py:54
+#: xnbtd/tours/admin.py:55
 msgid "totals_clients_abductions"
 msgstr "totals clients enlèvements"
-
-#: xnbtd/tours/admin.py:56 xnbtd/tours/admin.py:82 xnbtd/tours/models.py:96
-msgid "breaks"
-msgstr "pauses"
 
 #: xnbtd/tours/admin.py:57
 msgid "kilometers"
 msgstr "kilomètres"
 
-#: xnbtd/tours/admin.py:71
+#: xnbtd/tours/admin.py:72
 msgid "charged_packages"
 msgstr "colis chargé"
 
-#: xnbtd/tours/admin.py:73
+#: xnbtd/tours/admin.py:74
 msgid "charged_points"
 msgstr "points chargés"
 
-#: xnbtd/tours/admin.py:74
+#: xnbtd/tours/admin.py:75
 msgid "including_ip"
 msgstr "dont ip"
 
-#: xnbtd/tours/admin.py:75
+#: xnbtd/tours/admin.py:76
 msgid "relay"
 msgstr "relais"
 
-#: xnbtd/tours/admin.py:76
+#: xnbtd/tours/admin.py:77
 msgid "return_packages"
 msgstr "retour colis"
 
-#: xnbtd/tours/admin.py:77
+#: xnbtd/tours/admin.py:78
 msgid "return_points"
 msgstr "retour points"
 
-#: xnbtd/tours/admin.py:78
+#: xnbtd/tours/admin.py:79
 msgid "overdue"
 msgstr "hors délais"
 
-#: xnbtd/tours/admin.py:79
+#: xnbtd/tours/admin.py:80
 msgid "anomalies"
 msgstr "anomalies"
 
-#: xnbtd/tours/admin.py:80
+#: xnbtd/tours/admin.py:81
 msgid "total_points"
 msgstr "total points"
 
-#: xnbtd/tours/admin.py:81
+#: xnbtd/tours/admin.py:82
 msgid "full_km"
 msgstr "plein / km"
 
-#: xnbtd/tours/admin.py:95
+#: xnbtd/tours/admin.py:96
 msgid "type"
 msgstr "type"
 
-#: xnbtd/tours/admin.py:96
+#: xnbtd/tours/admin.py:97
 msgid "code"
 msgstr "code"
 
-#: xnbtd/tours/admin.py:97 xnbtd/tours/models.py:136
+#: xnbtd/tours/admin.py:98 xnbtd/tours/models.py:136
 msgid "nights"
 msgstr "nuits"
 
-#: xnbtd/tours/admin.py:98 xnbtd/tours/models.py:137
+#: xnbtd/tours/admin.py:99 xnbtd/tours/models.py:137
 msgid "days"
 msgstr "jours"
 
-#: xnbtd/tours/admin.py:100
+#: xnbtd/tours/admin.py:101
 msgid "spare_part"
 msgstr "spare part"
 
-#: xnbtd/tours/admin.py:101 xnbtd/tours/models.py:140
+#: xnbtd/tours/admin.py:102 xnbtd/tours/models.py:140
 msgid "synchro"
 msgstr "synchro"
 
-#: xnbtd/tours/admin.py:102
+#: xnbtd/tours/admin.py:103
 msgid "morning_pickup"
 msgstr "ramassages matin"
+
+#: xnbtd/tours/admin.py:136 xnbtd/tours/admin.py:172 xnbtd/tours/admin.py:207
+#: xnbtd/tours/admin.py:240
+msgid "Total Work Hours"
+msgstr "Total d’heures de travail"
+
+#: xnbtd/tours/admin.py:137 xnbtd/tours/admin.py:173 xnbtd/tours/admin.py:208
+#: xnbtd/tours/admin.py:241
+msgid "Total Break Hours"
+msgstr "Total d’heures de pause"
 
 #: xnbtd/tours/apps.py:8
 msgid "app_tours_name"

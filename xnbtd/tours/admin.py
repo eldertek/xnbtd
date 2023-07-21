@@ -132,7 +132,10 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'total_hour'
     )
     list_filter = ('date', 'name')
-    list_statistic = ('total_hour', 'breaks')
+    list_statistic = [
+        ('total_hour', _('Total Work Hours')),
+        ('breaks', _('Total Break Hours')),
+    ]
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -163,7 +166,10 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'total_hour'
     )
     list_filter = ('date', 'name')
-    list_statistic = ('total_hour', 'breaks')
+    list_statistic = [
+        ('total_hour', _('Total Work Hours')),
+        ('breaks', _('Total Break Hours')),
+    ]
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -195,7 +201,10 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
         'total_hour'
     )
     list_filter = ('date', 'name')
-    list_statistic = ('total_hour', 'breaks')
+    list_statistic = [
+        ('total_hour', _('Total Work Hours')),
+        ('breaks', _('Total Break Hours')),
+    ]
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -225,7 +234,10 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'total_hour'
     )
     list_filter = ('date', 'name', 'code')
-    list_statistic = ('total_hour', 'breaks')
+    list_statistic = [
+        ('total_hour', _('Total Work Hours')),
+        ('breaks', _('Total Break Hours')),
+    ]
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}

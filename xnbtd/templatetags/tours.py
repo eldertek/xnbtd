@@ -21,14 +21,16 @@ def calculate_total(queryset, column):
     if queryset.exists():
         model_class = queryset.model
         field_type = model_class._meta.get_field(column).get_internal_type()
-        if field_type == 'IntegerField' or field_type == 'FloatField':
+
+        if field_type in ('IntegerField', 'FloatField'):
             total = queryset.aggregate(total=Sum(column)).get('total')
             return total
         elif field_type == 'TimeField':
             total_time = timedelta()
+
             for item in queryset:
                 value = getattr(item, column)
-                if value:                    
+                if value:
                     total_time += timedelta(hours=value.hour, minutes=value.minute, seconds=value.second)
 
             # Calculate total hours and return
