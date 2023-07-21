@@ -1,6 +1,8 @@
 from datetime import timedelta
+
 from django import template
 from django.db.models import Sum
+
 
 register = template.Library()
 
