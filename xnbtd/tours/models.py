@@ -1,10 +1,12 @@
 from datetime import datetime
 
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 
 class GLS(models.Model):
+    linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     date = models.DateField(verbose_name=_('Tour Date'))
     points_charges = models.IntegerField(verbose_name=_('Points Charges'))
@@ -44,6 +46,7 @@ class GLS(models.Model):
 
 
 class ChronopostDelivery(models.Model):
+    linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     date = models.DateField(verbose_name=_('Tour Date'))
     charged_packages = models.IntegerField(verbose_name=_('Charged Packages'))
@@ -85,6 +88,7 @@ class ChronopostDelivery(models.Model):
 
 
 class ChronopostPickup(models.Model):
+    linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     date = models.DateField(verbose_name=_('Tour Date'))
     esd = models.IntegerField(verbose_name=_('ESD'))
@@ -119,6 +123,7 @@ class ChronopostPickup(models.Model):
 
 
 class TNT(models.Model):
+    linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     date = models.DateField(verbose_name=_('Tour Date'))
     client_numbers = models.IntegerField(verbose_name=_('Client numbers'))
@@ -159,6 +164,7 @@ class TNT(models.Model):
 
 
 class Ciblex(models.Model):
+    linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     type = models.CharField(max_length=255, default="LIVRAISONS")
 

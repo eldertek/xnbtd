@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from import_export import resources
 from import_export.admin import ExportMixin
@@ -10,6 +11,7 @@ from .models import GLS, TNT, ChronopostDelivery, ChronopostPickup, Ciblex
 
 class GLSResource(resources.ModelResource):
     id = resources.Field(attribute='id')
+    linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
     points_charges = resources.Field(attribute='points_charges', column_name=_('points_charges'))
@@ -37,6 +39,7 @@ class GLSResource(resources.ModelResource):
 
 class TNTResource(resources.ModelResource):
     id = resources.Field(attribute='id')
+    linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
     client_numbers = resources.Field(attribute='client_numbers', column_name=_('client_numbers'))
@@ -65,6 +68,7 @@ class TNTResource(resources.ModelResource):
 
 class ChronopostDeliveryResource(resources.ModelResource):
     id = resources.Field(attribute='id')
+    linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
     charged_packages = resources.Field(
@@ -90,6 +94,7 @@ class ChronopostDeliveryResource(resources.ModelResource):
 
 class ChronopostPickupResource(resources.ModelResource):
     id = resources.Field(attribute='id')
+    linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
     esd = resources.Field(attribute='esd', column_name=_('esd'))
@@ -106,6 +111,7 @@ class ChronopostPickupResource(resources.ModelResource):
 
 class CiblexResource(resources.ModelResource):
     id = resources.Field(attribute='id')
+    linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
     type = resources.Field(attribute='type', column_name=_('type'))
@@ -132,6 +138,7 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
     readonly_fields = ('total_hour',)
     list_display = (
         'name',
+        'linked_user',
         'date',
         'points_charges',
         'points_delivered',
@@ -146,12 +153,26 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'ending_hour',
         'total_hour'
     )
-    list_filter = ('date', 'name')
+    list_filter = ('date', 'linked_user', 'name')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('packages_delivered', _('Total Packages Delivered')),
     ]
+
+    def get_changeform_initial_data(self, request):
+        if not request.user.is_superuser:
+            get_data = super(GLSAdmin, self).get_changeform_initial_data(request)
+            get_data['linked_user'] = request.user.pk
+            return get_data
+        return super(GLSAdmin, self).get_changeform_initial_data(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "linked_user":
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(GLSAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -166,6 +187,7 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
     readonly_fields = ('total_hour',)
     list_display = (
         'name',
+        'linked_user',
         'date',
         'client_numbers',
         'refused',
@@ -181,12 +203,26 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'ending_hour',
         'total_hour'
     )
-    list_filter = ('date', 'name')
+    list_filter = ('date', 'linked_user', 'name')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('totals_clients', _('Total Clients')),
     ]
+
+    def get_changeform_initial_data(self, request):
+        if not request.user.is_superuser:
+            get_data = super(TNTAdmin, self).get_changeform_initial_data(request)
+            get_data['linked_user'] = request.user.pk
+            return get_data
+        return super(TNTAdmin, self).get_changeform_initial_data(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "linked_user":
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(TNTAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -201,6 +237,7 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
     readonly_fields = ('total_hour',)
     list_display = (
         'name',
+        'linked_user',
         'date',
         'charged_packages',
         'charged_points',
@@ -217,12 +254,26 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
         'ending_hour',
         'total_hour'
     )
-    list_filter = ('date', 'name')
+    list_filter = ('date', 'linked_user', 'name')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('total_points', _('Total of Points')),
     ]
+
+    def get_changeform_initial_data(self, request):
+        if not request.user.is_superuser:
+            get_data = super(ChronopostDeliveryAdmin, self).get_changeform_initial_data(request)
+            get_data['linked_user'] = request.user.pk
+            return get_data
+        return super(ChronopostDeliveryAdmin, self).get_changeform_initial_data(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "linked_user":
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -237,6 +288,7 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
     readonly_fields = ('total_hour',)
     list_display = (
         'name',
+        'linked_user',
         'date',
         'esd',
         'picked_points',
@@ -246,12 +298,27 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
         'ending_hour',
         'total_hour'
     )
-    list_filter = ('date', 'name')
+    list_filter = ('date', 'linked_user', 'name')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('picked_points', _('Total of Picked Points')),
     ]
+
+    def get_changeform_initial_data(self, request):
+        if not request.user.is_superuser:
+            get_data = super(ChronopostPickupAdmin, self).get_changeform_initial_data(request)
+            get_data['linked_user'] = request.user.pk
+            return get_data
+        return super(ChronopostPickupAdmin, self).get_changeform_initial_data(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "linked_user":
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(ChronopostPickupAdmin, self).formfield_for_foreignkey(db_field,
+                                                                           request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -266,6 +333,7 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
     readonly_fields = ('total_hour',)
     list_display = (
         'name',
+        'linked_user',
         'date',
         'type',
         'code',
@@ -280,12 +348,26 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'ending_hour',
         'total_hour'
     )
-    list_filter = ('date', 'name', 'code')
+    list_filter = ('date', 'linked_user', 'name', 'code')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('days', _('Total Days'))
     ]
+
+    def get_changeform_initial_data(self, request):
+        if not request.user.is_superuser:
+            get_data = super(CiblexAdmin, self).get_changeform_initial_data(request)
+            get_data['linked_user'] = request.user.pk
+            return get_data
+        return super(CiblexAdmin, self).get_changeform_initial_data(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "linked_user":
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(CiblexAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}

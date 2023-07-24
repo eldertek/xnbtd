@@ -17,7 +17,8 @@ def calculate_total(queryset, column):
         column (str): The column for which the total is being calculated.
 
     Returns:
-        float: The total of the column rounded to two decimal places
+        float or None: The total of the column rounded to two decimal places,
+        or None if the total is None.
     """
     if queryset.exists():
         model_class = queryset.model
@@ -25,7 +26,7 @@ def calculate_total(queryset, column):
 
         if field_type in ('IntegerField', 'FloatField'):
             total = queryset.aggregate(total=Sum(column)).get('total')
-            return round(total, 2)
+            return round(total, 2) if total is not None else None
         elif field_type == 'TimeField':
             total_time = timedelta()
 
@@ -37,6 +38,6 @@ def calculate_total(queryset, column):
 
             # Calculate total hours and round to 2 decimal places
             total_hours = total_time.total_seconds() / 3600
-            return round(total_hours, 2)
+            return round(total_hours, 2) if total_hours is not None else None
 
     return None
