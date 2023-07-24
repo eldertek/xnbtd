@@ -224,8 +224,6 @@ msgid "Total of Points"
 msgstr "Total de points"
 
 #: xnbtd/tours/admin.py:306
-#, fuzzy
-#| msgid "Total of Points"
 msgid "Total of Picked Points"
 msgstr "Total de points ramassés"
 

@@ -1,6 +1,8 @@
 from datetime import datetime
-from django.db import models
+
 from django.contrib.auth.models import User
+from django.db import models
+from django.utils import formats
 from django.utils.translation import gettext_lazy as _
 
 
@@ -22,6 +24,10 @@ class BaseModel(models.Model):
             elapsed_time = elapsed_time.total_seconds() / 3600
             return round(elapsed_time, 2)
         return None
+
+    def __str__(self):
+        formatted_date = formats.date_format(self.date, format="l j F Y")
+        return f"{self.name} - {formatted_date}"
 
     def save(self, *args, **kwargs):
         self.total_hour = self.elapsed_time_hours()
