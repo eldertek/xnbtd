@@ -273,7 +273,8 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
             if db_field.name == "linked_user":
                 kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(db_field, request,
+                                                                             **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
