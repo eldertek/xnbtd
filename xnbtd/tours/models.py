@@ -27,7 +27,8 @@ class GLS(models.Model):
             end_datetime = datetime.combine(self.date, self.ending_hour)
 
             elapsed_time = end_datetime - begin_datetime
-            return elapsed_time.total_seconds() / 3600
+            elapsed_time = elapsed_time.total_seconds() / 3600
+            return round(elapsed_time, 2)
         return None
 
     def save(self, *args, **kwargs):
@@ -42,7 +43,7 @@ class GLS(models.Model):
         verbose_name_plural = _('GLS')
 
 
-class Chronopost(models.Model):
+class ChronopostDelivery(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     date = models.DateField(verbose_name=_('Tour Date'))
     charged_packages = models.IntegerField(verbose_name=_('Charged Packages'))
@@ -67,19 +68,54 @@ class Chronopost(models.Model):
             end_datetime = datetime.combine(self.date, self.ending_hour)
 
             elapsed_time = end_datetime - begin_datetime
-            return elapsed_time.total_seconds() / 3600
+            elapsed_time = elapsed_time.total_seconds() / 3600
+            return round(elapsed_time, 2)
         return None
 
     def save(self, *args, **kwargs):
         self.total_hour = self.elapsed_time_hours()
-        super(Chronopost, self).save(*args, **kwargs)
+        super(ChronopostDelivery, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Chronopost')
-        verbose_name_plural = _('Chronopost')
+        verbose_name = _('ChronopostDelivery')
+        verbose_name_plural = _('ChronopostDelivery')
+
+
+class ChronopostPickup(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
+    date = models.DateField(verbose_name=_('Tour Date'))
+    esd = models.IntegerField(verbose_name=_('ESD'))
+    picked_points = models.IntegerField(verbose_name=_('Picked Points'))
+    poste = models.IntegerField(verbose_name=_('Poste'))
+    breaks = models.TimeField(verbose_name=_('Breaks'))
+
+    beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
+    ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
+    total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
+
+    def elapsed_time_hours(self):
+        if self.beginning_hour and self.ending_hour:
+            begin_datetime = datetime.combine(self.date, self.beginning_hour)
+            end_datetime = datetime.combine(self.date, self.ending_hour)
+
+            elapsed_time = end_datetime - begin_datetime
+            elapsed_time = elapsed_time.total_seconds() / 3600
+            return round(elapsed_time, 2)
+        return None
+
+    def save(self, *args, **kwargs):
+        self.total_hour = self.elapsed_time_hours()
+        super(ChronopostPickup, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('ChronopostPickup')
+        verbose_name_plural = _('ChronopostPickup')
 
 
 class TNT(models.Model):
@@ -106,7 +142,8 @@ class TNT(models.Model):
             end_datetime = datetime.combine(self.date, self.ending_hour)
 
             elapsed_time = end_datetime - begin_datetime
-            return elapsed_time.total_seconds() / 3600
+            elapsed_time = elapsed_time.total_seconds() / 3600
+            return round(elapsed_time, 2)
         return None
 
     def save(self, *args, **kwargs):
@@ -152,7 +189,8 @@ class Ciblex(models.Model):
             end_datetime = datetime.combine(self.date, self.ending_hour)
 
             elapsed_time = end_datetime - begin_datetime
-            return elapsed_time.total_seconds() / 3600
+            elapsed_time = elapsed_time.total_seconds() / 3600
+            return round(elapsed_time, 2)
         return None
 
     def save(self, *args, **kwargs):

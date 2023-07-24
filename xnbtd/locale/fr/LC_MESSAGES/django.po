@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-21 08:27+0000\n"
+"POT-Creation-Date: 2023-07-24 15:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: xnbtd/templates/xnbtd/admin/change_list.html:8
+#: xnbtd/templates/xnbtd/admin/change_list.html:7
 msgid "Statistic"
 msgstr "Statistique"
 
-#: xnbtd/templates/xnbtd/admin/change_list.html:12
+#: xnbtd/templates/xnbtd/admin/change_list.html:14
 msgid "Filter"
 msgstr "Filtre"
 
-#: xnbtd/templates/xnbtd/admin/change_list.html:18
+#: xnbtd/templates/xnbtd/admin/change_list.html:20
 msgid "Hide counts"
 msgstr "Cacher"
 
-#: xnbtd/templates/xnbtd/admin/change_list.html:20
+#: xnbtd/templates/xnbtd/admin/change_list.html:22
 msgid "Show counts"
 msgstr "Afficher"
 
-#: xnbtd/templates/xnbtd/admin/change_list.html:26
+#: xnbtd/templates/xnbtd/admin/change_list.html:28
 msgid "Clear all filters"
 msgstr "Effacer tous les filtres"
