@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from import_export import resources
 from import_export.admin import ExportMixin
 
-from .models import GLS, TNT, Chronopost, Ciblex
+from .models import GLS, TNT, ChronopostDelivery, ChronopostPickup, Ciblex
 
 
 # Resource classes for import_export
@@ -63,7 +63,7 @@ class TNTResource(resources.ModelResource):
         model = TNT
 
 
-class ChronopostResource(resources.ModelResource):
+class ChronopostDeliveryResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
@@ -85,7 +85,23 @@ class ChronopostResource(resources.ModelResource):
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
 
     class Meta:
-        model = Chronopost
+        model = ChronopostDelivery
+
+
+class ChronopostPickupResource(resources.ModelResource):
+    id = resources.Field(attribute='id')
+    name = resources.Field(attribute='name', column_name=_('name'))
+    date = resources.Field(attribute='date', column_name=_('date'))
+    esd = resources.Field(attribute='esd', column_name=_('esd'))
+    picked_points = resources.Field(attribute='picked_points', column_name=_('picked_points'))
+    poste = resources.Field(attribute='poste', column_name=_('poste'))
+    breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
+    beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
+    ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
+    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
+
+    class Meta:
+        model = ChronopostPickup
 
 
 class CiblexResource(resources.ModelResource):
@@ -180,8 +196,8 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
     change_list_template = 'xnbtd/admin/change_list.html'
 
 
-class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
-    resource_class = ChronopostResource
+class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
+    resource_class = ChronopostDeliveryResource
     readonly_fields = ('total_hour',)
     list_display = (
         'name',
@@ -206,6 +222,35 @@ class ChronopostAdmin(ExportMixin, admin.ModelAdmin):
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('total_points', _('Total of Points')),
+    ]
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['list_statistic'] = self.list_statistic
+        return super().changelist_view(request, extra_context=extra_context)
+
+    change_list_template = 'xnbtd/admin/change_list.html'
+
+
+class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
+    resource_class = ChronopostPickupResource
+    readonly_fields = ('total_hour',)
+    list_display = (
+        'name',
+        'date',
+        'esd',
+        'picked_points',
+        'poste',
+        'breaks',
+        'beginning_hour',
+        'ending_hour',
+        'total_hour'
+    )
+    list_filter = ('date', 'name')
+    list_statistic = [
+        ('total_hour', _('Total Work Hours')),
+        ('breaks', _('Total Break Hours')),
+        ('picked_points', _('Total of Picked Points')),
     ]
 
     def changelist_view(self, request, extra_context=None):
@@ -252,5 +297,6 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
 
 admin.site.register(GLS, GLSAdmin)
 admin.site.register(TNT, TNTAdmin)
-admin.site.register(Chronopost, ChronopostAdmin)
+admin.site.register(ChronopostDelivery, ChronopostDeliveryAdmin)
+admin.site.register(ChronopostPickup, ChronopostPickupAdmin)
 admin.site.register(Ciblex, CiblexAdmin)
