@@ -115,7 +115,6 @@ class CiblexResource(resources.ModelResource):
     name = resources.Field(attribute='name', column_name=_('name'))
     date = resources.Field(attribute='date', column_name=_('date'))
     type = resources.Field(attribute='type', column_name=_('type'))
-    code = resources.Field(attribute='code', column_name=_('code'))
     nights = resources.Field(attribute='nights', column_name=_('nights'))
     days = resources.Field(attribute='days', column_name=_('days'))
     avp = resources.Field(attribute='avp', column_name=_('avp'))
@@ -337,7 +336,6 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'linked_user',
         'date',
         'type',
-        'code',
         'nights',
         'days',
         'avp',
@@ -349,7 +347,7 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'ending_hour',
         'total_hour'
     )
-    list_filter = ('date', 'linked_user', 'name', 'code')
+    list_filter = ('date', 'linked_user', 'name')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),

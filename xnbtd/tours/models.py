@@ -97,13 +97,6 @@ class TNT(BaseModel):
 
 class Ciblex(BaseModel):
     type = models.CharField(max_length=255, default="LIVRAISONS")
-    CODE_CHOICES = [
-        ("35011", "35011 - RENNES SUD"),
-        ("35020", "35020 - RENNES CHU"),
-        ("35022", "35022 - MONTFORT SUR MEU"),
-        ("35023", "35023 - PACE - ZI LORIENT"),
-    ]
-    code = models.CharField(max_length=5, choices=CODE_CHOICES)
     nights = models.IntegerField(verbose_name=_('nights'))
     days = models.IntegerField(verbose_name=_('days'))
     avp = models.IntegerField(verbose_name=_('avp'))
