@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xnbtd"
-version = "0.0.9"
+version = "1.0.0"
 description = "xNBTD est une application de gestion pour entreprise de livraison. Elle facilite la gestion des tournées et des plannings."
 authors = [
     "André Théo LAURET <andrelauret@eclipse-technology.eu>",
