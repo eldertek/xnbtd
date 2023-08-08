@@ -159,6 +159,12 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         ('packages_delivered', _('Total Packages Delivered')),
     ]
 
+    def get_queryset(self, request):
+        qs = super(GLSAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(linked_user=request.user)
+
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
             get_data = super(GLSAdmin, self).get_changeform_initial_data(request)
@@ -208,6 +214,12 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         ('breaks', _('Total Break Hours')),
         ('totals_clients', _('Total Clients')),
     ]
+
+    def get_queryset(self, request):
+        qs = super(TNTAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -260,6 +272,12 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
         ('total_points', _('Total of Points')),
     ]
 
+    def get_queryset(self, request):
+        qs = super(ChronopostDeliveryAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(linked_user=request.user)
+
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
             get_data = super(ChronopostDeliveryAdmin, self).get_changeform_initial_data(request)
@@ -304,6 +322,12 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
         ('breaks', _('Total Break Hours')),
         ('picked_points', _('Total of Picked Points')),
     ]
+
+    def get_queryset(self, request):
+        qs = super(ChronopostPickupAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -353,6 +377,12 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         ('breaks', _('Total Break Hours')),
         ('days', _('Total Days'))
     ]
+
+    def get_queryset(self, request):
+        qs = super(CiblexAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
