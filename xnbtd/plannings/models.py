@@ -15,6 +15,7 @@ class Event(models.Model):
         verbose_name_plural = _('Events')
         ordering = ['date']
 
+
 class Rest(models.Model):
     status = models.BooleanField(verbose_name=_('Status'), default=False)
     linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
@@ -23,7 +24,7 @@ class Rest(models.Model):
 
     def __str__(self):
         return self.start_date.strftime("%d/%m/%Y") + " - " + self.linked_user.username
-    
+
     class Meta:
         verbose_name = _('Rest')
         verbose_name_plural = _('Rests')

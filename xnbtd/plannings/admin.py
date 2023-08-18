@@ -26,6 +26,7 @@ class StatusFilter(admin.SimpleListFilter):
         elif self.value() == 'pending':
             return queryset.filter(status=False)
 
+
 # Admins
 class EventAdmin(admin.ModelAdmin):
     list_filter = ("date",)

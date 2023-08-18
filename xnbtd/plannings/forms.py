@@ -18,7 +18,6 @@ class RestAdminForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         if 'status' in cleaned_data:
-            status = cleaned_data.get('status')
             # Check if status has been changed and the user is not a superuser
             if 'status' in self.changed_data and not self.current_user.is_superuser:
                 raise ValidationError(_('Only admin users can change the status.'))
