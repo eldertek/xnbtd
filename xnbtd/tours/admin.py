@@ -13,6 +13,7 @@ class GLSResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
+    license_plate = resources.Field(attribute='license_plate', column_name=_('license_plate'))
     date = resources.Field(attribute='date', column_name=_('date'))
     points_charges = resources.Field(attribute='points_charges', column_name=_('points_charges'))
     points_delivered = resources.Field(
@@ -32,6 +33,7 @@ class GLSResource(resources.ModelResource):
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
+    comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
         model = GLS
@@ -41,6 +43,7 @@ class TNTResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
+    license_plate = resources.Field(attribute='license_plate', column_name=_('license_plate'))
     date = resources.Field(attribute='date', column_name=_('date'))
     client_numbers = resources.Field(attribute='client_numbers', column_name=_('client_numbers'))
     refused = resources.Field(attribute='refused', column_name=_('refused'))
@@ -61,6 +64,7 @@ class TNTResource(resources.ModelResource):
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
+    comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
         model = TNT
@@ -70,6 +74,7 @@ class ChronopostDeliveryResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
+    license_plate = resources.Field(attribute='license_plate', column_name=_('license_plate'))
     date = resources.Field(attribute='date', column_name=_('date'))
     charged_packages = resources.Field(
         attribute='charged_packages', column_name=_('charged_packages')
@@ -87,6 +92,7 @@ class ChronopostDeliveryResource(resources.ModelResource):
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
+    comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
         model = ChronopostDelivery
@@ -96,6 +102,7 @@ class ChronopostPickupResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
+    license_plate = resources.Field(attribute='license_plate', column_name=_('license_plate'))
     date = resources.Field(attribute='date', column_name=_('date'))
     esd = resources.Field(attribute='esd', column_name=_('esd'))
     picked_points = resources.Field(attribute='picked_points', column_name=_('picked_points'))
@@ -104,6 +111,7 @@ class ChronopostPickupResource(resources.ModelResource):
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
+    comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
         model = ChronopostPickup
@@ -113,6 +121,7 @@ class CiblexResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
     name = resources.Field(attribute='name', column_name=_('name'))
+    license_plate = resources.Field(attribute='license_plate', column_name=_('license_plate'))
     date = resources.Field(attribute='date', column_name=_('date'))
     type = resources.Field(attribute='type', column_name=_('type'))
     nights = resources.Field(attribute='nights', column_name=_('nights'))
@@ -125,6 +134,7 @@ class CiblexResource(resources.ModelResource):
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
     total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
+    comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
         model = Ciblex
@@ -139,6 +149,7 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'license_plate',
         'points_charges',
         'points_delivered',
         'packages_charges',
@@ -150,9 +161,10 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour'
+        'total_hour',
+        'comments'
     )
-    list_filter = ('date', 'linked_user', 'name')
+    list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
@@ -194,6 +206,7 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'license_plate',
         'client_numbers',
         'refused',
         'avp',
@@ -206,9 +219,10 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour'
+        'total_hour',
+        'comments'
     )
-    list_filter = ('date', 'linked_user', 'name')
+    list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
@@ -250,6 +264,7 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'license_plate',
         'charged_packages',
         'charged_points',
         'including_ip',
@@ -263,9 +278,10 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour'
+        'total_hour',
+        'comments'
     )
-    list_filter = ('date', 'linked_user', 'name')
+    list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
@@ -308,15 +324,17 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'license_plate',
         'esd',
         'picked_points',
         'poste',
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour'
+        'total_hour',
+        'comments'
     )
-    list_filter = ('date', 'linked_user', 'name')
+    list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
@@ -359,6 +377,7 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'license_plate',
         'type',
         'nights',
         'days',
@@ -369,9 +388,10 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour'
+        'total_hour',
+        'comments'
     )
-    list_filter = ('date', 'linked_user', 'name')
+    list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
         ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),

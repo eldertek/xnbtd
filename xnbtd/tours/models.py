@@ -14,6 +14,8 @@ class BaseModel(models.Model):
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
     total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
+    license_plate = models.CharField(max_length=7, verbose_name=_('License Plate'))
+    comments = models.TextField(verbose_name=_('Comments'), null=True, blank=True)
 
     def elapsed_time_hours(self):
         if self.beginning_hour and self.ending_hour:
@@ -46,6 +48,7 @@ class GLS(BaseModel):
     shd = models.IntegerField(verbose_name=_('SHD'))
     eo = models.IntegerField(verbose_name=_('EO'))
     pickup_point = models.IntegerField(verbose_name=_('Pickup Point'))
+    full_km = models.IntegerField(verbose_name=_('Full KM'))
 
     class Meta:
         verbose_name = _('GLS')
