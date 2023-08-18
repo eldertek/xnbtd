@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import Rest
 
+
 class RestAdminForm(forms.ModelForm):
     class Meta:
         model = Rest
