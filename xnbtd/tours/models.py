@@ -13,27 +13,12 @@ class BaseModel(models.Model):
     breaks = models.TimeField(verbose_name=_('Breaks'))
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
-    total_hour = models.FloatField(verbose_name=_('Total Hour'), null=True, blank=True)
     license_plate = models.CharField(max_length=7, verbose_name=_('License Plate'))
     comments = models.TextField(verbose_name=_('Comments'), null=True, blank=True)
-
-    def elapsed_time_hours(self):
-        if self.beginning_hour and self.ending_hour:
-            begin_datetime = datetime.combine(self.date, self.beginning_hour)
-            end_datetime = datetime.combine(self.date, self.ending_hour)
-
-            elapsed_time = end_datetime - begin_datetime
-            elapsed_time = elapsed_time.total_seconds() / 3600
-            return round(elapsed_time, 2)
-        return None
 
     def __str__(self):
         formatted_date = formats.date_format(self.date, format="l j F Y")
         return f"{self.name} - {formatted_date}"
-
-    def save(self, *args, **kwargs):
-        self.total_hour = self.elapsed_time_hours()
-        super(BaseModel, self).save(*args, **kwargs)
 
     class Meta:
         abstract = True

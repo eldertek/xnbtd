@@ -32,7 +32,6 @@ class GLSResource(resources.ModelResource):
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
-    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
     comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
@@ -63,7 +62,6 @@ class TNTResource(resources.ModelResource):
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
-    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
     comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
@@ -91,7 +89,6 @@ class ChronopostDeliveryResource(resources.ModelResource):
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
-    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
     comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
@@ -110,7 +107,6 @@ class ChronopostPickupResource(resources.ModelResource):
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
-    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
     comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
@@ -133,7 +129,6 @@ class CiblexResource(resources.ModelResource):
     breaks = resources.Field(attribute='breaks', column_name=_('breaks'))
     beginning_hour = resources.Field(attribute='beginning_hour', column_name=_('beginning_hour'))
     ending_hour = resources.Field(attribute='ending_hour', column_name=_('ending_hour'))
-    total_hour = resources.Field(attribute='total_hour', column_name=_('total_hour'))
     comments = resources.Field(attribute='comments', column_name=_('comments'))
 
     class Meta:
@@ -144,7 +139,6 @@ class CiblexResource(resources.ModelResource):
 
 class GLSAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = GLSResource
-    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'linked_user',
@@ -161,12 +155,10 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour',
         'comments'
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('packages_delivered', _('Total Packages Delivered')),
     ]
@@ -201,7 +193,6 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
 
 class TNTAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = TNTResource
-    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'linked_user',
@@ -219,12 +210,10 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour',
         'comments'
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('totals_clients', _('Total Clients')),
     ]
@@ -259,7 +248,6 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
 
 class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = ChronopostDeliveryResource
-    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'linked_user',
@@ -278,12 +266,10 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour',
         'comments'
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('total_points', _('Total of Points')),
     ]
@@ -319,7 +305,6 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
 
 class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = ChronopostPickupResource
-    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'linked_user',
@@ -331,12 +316,10 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour',
         'comments'
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('picked_points', _('Total of Picked Points')),
     ]
@@ -372,7 +355,6 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
 
 class CiblexAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = CiblexResource
-    readonly_fields = ('total_hour',)
     list_display = (
         'name',
         'linked_user',
@@ -388,12 +370,10 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'total_hour',
         'comments'
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('total_hour', _('Total Work Hours')),
         ('breaks', _('Total Break Hours')),
         ('days', _('Total Days'))
     ]
