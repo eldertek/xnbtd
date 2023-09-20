@@ -159,7 +159,6 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('breaks', _('Total Break Hours')),
         ('packages_delivered', _('Total Packages Delivered')),
     ]
 
@@ -214,7 +213,6 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('breaks', _('Total Break Hours')),
         ('totals_clients', _('Total Clients')),
     ]
 
@@ -270,7 +268,6 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('breaks', _('Total Break Hours')),
         ('total_points', _('Total of Points')),
     ]
 
@@ -320,7 +317,6 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('breaks', _('Total Break Hours')),
         ('picked_points', _('Total of Picked Points')),
     ]
 
@@ -374,7 +370,6 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
-        ('breaks', _('Total Break Hours')),
         ('days', _('Total Days'))
     ]
 
