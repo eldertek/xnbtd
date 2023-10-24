@@ -4,7 +4,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
 
-from .models import BreakTime, GLS, TNT, ChronopostDelivery, ChronopostPickup, Ciblex
+from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex
 
 
 class BreakTimeInline(GenericTabularInline):
