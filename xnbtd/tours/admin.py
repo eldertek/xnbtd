@@ -20,7 +20,7 @@ class BaseAdmin(admin.ModelAdmin):
 
     def display_breaks(self, obj):
         breaks = BreakTime.objects.filter(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id)
-        return ", ".join([str(b.time) for b in breaks])
+        return ", ".join([b.time.strftime('%H:%M') for b in breaks])
 
     display_breaks.short_description = _("Breaks")
 
