@@ -31,9 +31,7 @@ class GLSAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(GLSAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -84,9 +82,7 @@ class TNTAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(TNTAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -138,9 +134,7 @@ class ChronopostDeliveryAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ChronopostDeliveryAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -187,9 +181,7 @@ class ChronopostPickupAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ChronopostPickupAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -238,9 +230,7 @@ class CiblexAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(CiblexAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
