@@ -24,15 +24,17 @@ def calculate_total(queryset, column):
         model_class = queryset.model
         field_type = model_class._meta.get_field(column).get_internal_type()
 
-        if field_type in ('IntegerField', 'FloatField'):
-            total = queryset.aggregate(total=Sum(column)).get('total')
+        if field_type in ("IntegerField", "FloatField"):
+            total = queryset.aggregate(total=Sum(column)).get("total")
             return round(total, 2) if total is not None else None
-        elif field_type == 'TimeField':
+        elif field_type == "TimeField":
             total_time = timedelta()
 
             for item in queryset:
                 if value := getattr(item, column):
-                    total_time += timedelta(hours=value.hour, minutes=value.minute, seconds=value.second)
+                    total_time += timedelta(
+                        hours=value.hour, minutes=value.minute, seconds=value.second
+                    )
 
             # Calculate total hours and round to 2 decimal places
             total_hours = total_time.total_seconds() / 3600
