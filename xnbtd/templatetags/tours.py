@@ -31,8 +31,7 @@ def calculate_total(queryset, column):
             total_time = timedelta()
 
             for item in queryset:
-                value = getattr(item, column)
-                if value:
+                if value := getattr(item, column):
                     total_time += timedelta(
                         hours=value.hour, minutes=value.minute, seconds=value.second
                     )
