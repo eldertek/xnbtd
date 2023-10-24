@@ -7,9 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class BaseModel(models.Model):
-    linked_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name=_("Deliveryman")
-    )
+    linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Deliveryman"))
     name = models.CharField(max_length=255, verbose_name=_("Tour Name"))
     date = models.DateField(verbose_name=_("Tour Date"))
     beginning_hour = models.TimeField(verbose_name=_("Beginning Hour"))
@@ -76,9 +74,7 @@ class TNT(BaseModel):
     totals_clients = models.IntegerField(verbose_name=_("totals clients"))
     occasional_abductions = models.IntegerField(verbose_name=_("occasional abductions"))
     regular_abductions = models.IntegerField(verbose_name=_("regular abductions"))
-    totals_clients_abductions = models.IntegerField(
-        verbose_name=_("total clients abductions")
-    )
+    totals_clients_abductions = models.IntegerField(verbose_name=_("total clients abductions"))
     kilometers = models.IntegerField(verbose_name=_("KM/Full"))
 
     class Meta:

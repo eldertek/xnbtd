@@ -53,7 +53,7 @@ class GLSAdmin(BaseAdmin):
         'name',
         'linked_user',
         'date',
-        'display_breaks',  
+        'display_breaks',
         'license_plate',
         'points_charges',
         'points_delivered',
@@ -103,7 +103,7 @@ class TNTAdmin(BaseAdmin):
         'name',
         'linked_user',
         'date',
-        'display_breaks',  
+        'display_breaks',
         'license_plate',
         'client_numbers',
         'refused',
@@ -154,7 +154,7 @@ class ChronopostDeliveryAdmin(BaseAdmin):
         'name',
         'linked_user',
         'date',
-        'display_breaks',  
+        'display_breaks',
         'license_plate',
         'charged_packages',
         'charged_points',
@@ -191,9 +191,7 @@ class ChronopostDeliveryAdmin(BaseAdmin):
             if db_field.name == "linked_user":
                 kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(
-            db_field, request, **kwargs
-        )
+        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -208,7 +206,7 @@ class ChronopostPickupAdmin(BaseAdmin):
         'name',
         'linked_user',
         'date',
-        'display_breaks',  
+        'display_breaks',
         'license_plate',
         'esd',
         'picked_points',
@@ -238,9 +236,7 @@ class ChronopostPickupAdmin(BaseAdmin):
             if db_field.name == "linked_user":
                 kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(ChronopostPickupAdmin, self).formfield_for_foreignkey(
-            db_field, request, **kwargs
-        )
+        return super(ChronopostPickupAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -255,7 +251,7 @@ class CiblexAdmin(BaseAdmin):
         'name',
         'linked_user',
         'date',
-        'display_breaks',  
+        'display_breaks',
         'license_plate',
         'type',
         'nights',
