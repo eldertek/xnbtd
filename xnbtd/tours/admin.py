@@ -98,7 +98,7 @@ class GLSAdmin(BaseAdmin):
     change_list_template = 'xnbtd/admin/change_list.html'
 
 
-class TNTAdmin(admin.ModelAdmin):
+class TNTAdmin(BaseAdmin):
     list_display = (
         'name',
         'linked_user',
@@ -149,7 +149,7 @@ class TNTAdmin(admin.ModelAdmin):
     change_list_template = 'xnbtd/admin/change_list.html'
 
 
-class ChronopostDeliveryAdmin(admin.ModelAdmin):
+class ChronopostDeliveryAdmin(BaseAdmin):
     list_display = (
         'name',
         'linked_user',
@@ -203,7 +203,7 @@ class ChronopostDeliveryAdmin(admin.ModelAdmin):
     change_list_template = 'xnbtd/admin/change_list.html'
 
 
-class ChronopostPickupAdmin(admin.ModelAdmin):
+class ChronopostPickupAdmin(BaseAdmin):
     list_display = (
         'name',
         'linked_user',
@@ -250,7 +250,7 @@ class ChronopostPickupAdmin(admin.ModelAdmin):
     change_list_template = 'xnbtd/admin/change_list.html'
 
 
-class CiblexAdmin(admin.ModelAdmin):
+class CiblexAdmin(BaseAdmin):
     list_display = (
         'name',
         'linked_user',
