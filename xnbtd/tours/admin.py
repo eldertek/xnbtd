@@ -1,15 +1,59 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.admin import GenericTabularInline
+from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
 
-from .models import GLS, TNT, ChronopostDelivery, ChronopostPickup, Ciblex
+from .models import BreakTime, GLS, TNT, ChronopostDelivery, ChronopostPickup, Ciblex
 
 
-class GLSAdmin(admin.ModelAdmin):
+class BreakTimeInline(GenericTabularInline):
+    model = BreakTime
+    ct_field = "content_type"
+    ct_fk_field = "object_id"
+    extra = 1
+
+
+class BaseAdmin(admin.ModelAdmin):
+    inlines = [BreakTimeInline]
+    change_list_template = 'xnbtd/admin/change_list.html'
+
+    def display_breaks(self, obj):
+        breaks = BreakTime.objects.filter(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id)
+        return ", ".join([str(b.time) for b in breaks])
+
+    display_breaks.short_description = _("Breaks")
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
+
+    def get_changeform_initial_data(self, request):
+        if not request.user.is_superuser:
+            get_data = super().get_changeform_initial_data(request)
+            get_data['linked_user'] = request.user.pk
+            return get_data
+        return super().get_changeform_initial_data(request)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if not request.user.is_superuser:
+            if db_field.name == "linked_user":
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
+            return super().formfield_for_foreignkey(db_field, request, **kwargs)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['list_statistic'] = self.list_statistic
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+class GLSAdmin(BaseAdmin):
     list_display = (
         'name',
         'linked_user',
         'date',
+        'display_breaks',  
         'license_plate',
         'points_charges',
         'points_delivered',
@@ -19,7 +63,6 @@ class GLSAdmin(admin.ModelAdmin):
         'shd',
         'eo',
         'pickup_point',
-        'breaks',
         'beginning_hour',
         'ending_hour',
         'comments',
@@ -31,9 +74,7 @@ class GLSAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(GLSAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -62,6 +103,7 @@ class TNTAdmin(admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'display_breaks',  
         'license_plate',
         'client_numbers',
         'refused',
@@ -72,7 +114,6 @@ class TNTAdmin(admin.ModelAdmin):
         'regular_abductions',
         'totals_clients_abductions',
         'kilometers',
-        'breaks',
         'beginning_hour',
         'ending_hour',
         'comments',
@@ -84,9 +125,7 @@ class TNTAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(TNTAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -115,6 +154,7 @@ class ChronopostDeliveryAdmin(admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'display_breaks',  
         'license_plate',
         'charged_packages',
         'charged_points',
@@ -126,7 +166,6 @@ class ChronopostDeliveryAdmin(admin.ModelAdmin):
         'anomalies',
         'total_points',
         'full_km',
-        'breaks',
         'beginning_hour',
         'ending_hour',
         'comments',
@@ -138,9 +177,7 @@ class ChronopostDeliveryAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ChronopostDeliveryAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -171,11 +208,11 @@ class ChronopostPickupAdmin(admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'display_breaks',  
         'license_plate',
         'esd',
         'picked_points',
         'poste',
-        'breaks',
         'beginning_hour',
         'ending_hour',
         'comments',
@@ -187,9 +224,7 @@ class ChronopostPickupAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ChronopostPickupAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
@@ -220,6 +255,7 @@ class CiblexAdmin(admin.ModelAdmin):
         'name',
         'linked_user',
         'date',
+        'display_breaks',  
         'license_plate',
         'type',
         'nights',
@@ -228,7 +264,6 @@ class CiblexAdmin(admin.ModelAdmin):
         'spare_part',
         'synchro',
         'morning_pickup',
-        'breaks',
         'beginning_hour',
         'ending_hour',
         'comments',
@@ -238,9 +273,7 @@ class CiblexAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(CiblexAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(linked_user=request.user)
+        return qs if request.user.is_superuser else qs.filter(linked_user=request.user)
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:

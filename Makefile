@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-MAX_LINE_LENGTH := 100
+MAX_LINE_LENGTH := $(shell echo $$(tput cols))
 
 all: help
 
@@ -7,30 +7,22 @@ help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9 -]+:.*?## / {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 check-poetry:
-	@if [[ "$(shell poetry --version 2>/dev/null)" == *"Poetry"* ]] ; \
-	then \
-		echo "Poetry found, ok." ; \
-	else \
-		echo 'Please install poetry first, with e.g.:' ; \
-		echo 'make install-poetry' ; \
-		exit 1 ; \
-	fi
+	@command -v poetry >/dev/null || (echo 'Please install poetry first, with e.g.: make install-poetry' && exit 1)
 
 install-poetry:  ## install or update poetry
-	curl -sSL https://install.python-poetry.org | python3 -
+	poetry self update
 
-install: check-poetry  ## install project via poetry
+venv:
 	python3 -m venv .venv
+
+install: check-poetry venv  ## install project via poetry
 	poetry install
 
-update: check-poetry  ## update the sources and installation and generate "conf/requirements.txt"
-	python3 -m venv .venv
-	poetry self update
+update: check-poetry venv  ## update the sources and installation and generate "conf/requirements.txt"
 	poetry update -v
 	poetry install
 
-without-poetry-install: ## Install/update without poetry (not recommended!)
-	python3 -m venv .venv
+without-poetry-install: venv ## Install/update without poetry (not recommended!)
 	.venv/bin/pip install -U pip
 	.venv/bin/pip install -e .
 
