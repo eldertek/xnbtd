@@ -33,8 +33,9 @@ def calculate_total(queryset, column):
             for item in queryset:
                 value = getattr(item, column)
                 if value:
-                    total_time += timedelta(hours=value.hour, minutes=value.minute,
-                                            seconds=value.second)
+                    total_time += timedelta(
+                        hours=value.hour, minutes=value.minute, seconds=value.second
+                    )
 
             # Calculate total hours and round to 2 decimal places
             total_hours = total_time.total_seconds() / 3600

@@ -17,9 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="chronopostdelivery",
             name="license_plate",
-            field=models.CharField(
-                default="XX000XX", max_length=7, verbose_name="License Plate"
-            ),
+            field=models.CharField(default="XX000XX", max_length=7, verbose_name="License Plate"),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -30,9 +28,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="chronopostpickup",
             name="license_plate",
-            field=models.CharField(
-                default="XX000XX", max_length=7, verbose_name="License Plate"
-            ),
+            field=models.CharField(default="XX000XX", max_length=7, verbose_name="License Plate"),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -43,9 +39,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="ciblex",
             name="license_plate",
-            field=models.CharField(
-                default="XX000XX", max_length=7, verbose_name="License Plate"
-            ),
+            field=models.CharField(default="XX000XX", max_length=7, verbose_name="License Plate"),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -62,9 +56,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="gls",
             name="license_plate",
-            field=models.CharField(
-                default="XX000XX", max_length=7, verbose_name="License Plate"
-            ),
+            field=models.CharField(default="XX000XX", max_length=7, verbose_name="License Plate"),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -75,9 +67,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="tnt",
             name="license_plate",
-            field=models.CharField(
-                default="XX000XX", max_length=7, verbose_name="License Plate"
-            ),
+            field=models.CharField(default="XX000XX", max_length=7, verbose_name="License Plate"),
             preserve_default=False,
         ),
     ]

@@ -71,13 +71,9 @@ class RestAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(RestAdmin, self).formfield_for_foreignkey(
-            db_field, request, **kwargs
-        )
+        return super(RestAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 admin.site.register(Event, EventAdmin)

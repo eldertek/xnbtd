@@ -9,6 +9,7 @@ from .models import GLS, TNT, ChronopostDelivery, ChronopostPickup, Ciblex
 
 # Resource classes for import_export
 
+
 class GLSResource(resources.ModelResource):
     id = resources.Field(attribute='id')
     linked_user = resources.Field(attribute='linked_user', column_name=_('Deliveryman'))
@@ -137,6 +138,7 @@ class CiblexResource(resources.ModelResource):
 
 # Admin classes
 
+
 class GLSAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = GLSResource
     list_display = (
@@ -155,7 +157,7 @@ class GLSAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'comments'
+        'comments',
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
@@ -209,7 +211,7 @@ class TNTAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'comments'
+        'comments',
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
@@ -264,7 +266,7 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'comments'
+        'comments',
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
@@ -289,8 +291,9 @@ class ChronopostDeliveryAdmin(ExportMixin, admin.ModelAdmin):
             if db_field.name == "linked_user":
                 kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(db_field, request,
-                                                                             **kwargs)
+        return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(
+            db_field, request, **kwargs
+        )
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -313,7 +316,7 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'comments'
+        'comments',
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
     list_statistic = [
@@ -338,8 +341,9 @@ class ChronopostPickupAdmin(ExportMixin, admin.ModelAdmin):
             if db_field.name == "linked_user":
                 kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(ChronopostPickupAdmin, self).formfield_for_foreignkey(db_field,
-                                                                           request, **kwargs)
+        return super(ChronopostPickupAdmin, self).formfield_for_foreignkey(
+            db_field, request, **kwargs
+        )
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -366,12 +370,10 @@ class CiblexAdmin(ExportMixin, admin.ModelAdmin):
         'breaks',
         'beginning_hour',
         'ending_hour',
-        'comments'
+        'comments',
     )
     list_filter = ('date', 'linked_user', 'name', 'license_plate')
-    list_statistic = [
-        ('days', _('Total Days'))
-    ]
+    list_statistic = [('days', _('Total Days'))]
 
     def get_queryset(self, request):
         qs = super(CiblexAdmin, self).get_queryset(request)
