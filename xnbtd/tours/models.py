@@ -1,3 +1,6 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import formats
@@ -8,7 +11,6 @@ class BaseModel(models.Model):
     linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Deliveryman'))
     name = models.CharField(max_length=255, verbose_name=_('Tour Name'))
     date = models.DateField(verbose_name=_('Tour Date'))
-    breaks = models.TimeField(verbose_name=_('Breaks'))
     beginning_hour = models.TimeField(verbose_name=_('Beginning Hour'))
     ending_hour = models.TimeField(verbose_name=_('Ending Hour'))
     license_plate = models.CharField(max_length=7, verbose_name=_('License Plate'))
@@ -93,3 +95,18 @@ class Ciblex(BaseModel):
     class Meta:
         verbose_name = _('Ciblex')
         verbose_name_plural = _('Ciblex')
+
+
+class BreakTime(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    time = models.TimeField(verbose_name=_('Pause Time'))
+
+    def __str__(self):
+        return str(_("Pause at"))
+
+    class Meta:
+        verbose_name = _('Break Time')
+        verbose_name_plural = _('Break Times')
