@@ -59,6 +59,7 @@ class GLSAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
+        "comments",
         "display_breaks",
         "license_plate",
         "points_charges",
@@ -71,7 +72,6 @@ class GLSAdmin(BaseAdmin):
         "pickup_point",
         "beginning_hour",
         "ending_hour",
-        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
@@ -128,6 +128,7 @@ class TNTAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
+        "comments",
         "display_breaks",
         "license_plate",
         "client_numbers",
@@ -141,7 +142,6 @@ class TNTAdmin(BaseAdmin):
         "kilometers",
         "beginning_hour",
         "ending_hour",
-        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
@@ -197,6 +197,7 @@ class ChronopostDeliveryAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
+        "comments",
         "display_breaks",
         "license_plate",
         "charged_packages",
@@ -211,7 +212,6 @@ class ChronopostDeliveryAdmin(BaseAdmin):
         "full_km",
         "beginning_hour",
         "ending_hour",
-        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
@@ -270,6 +270,7 @@ class ChronopostPickupAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
+        "comments",
         "display_breaks",
         "license_plate",
         "esd",
@@ -277,7 +278,6 @@ class ChronopostPickupAdmin(BaseAdmin):
         "poste",
         "beginning_hour",
         "ending_hour",
-        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
@@ -329,6 +329,7 @@ class CiblexAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
+        "comments",
         "display_breaks",
         "license_plate",
         "type",
@@ -340,7 +341,6 @@ class CiblexAdmin(BaseAdmin):
         "morning_pickup",
         "beginning_hour",
         "ending_hour",
-        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [("days", _("Total Days"))]

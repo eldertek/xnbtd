@@ -15,6 +15,10 @@ class BaseModel(models.Model):
     license_plate = models.CharField(max_length=7, verbose_name=_("License Plate"))
     comments = models.TextField(verbose_name=_("Comments"), null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        self.license_plate = self.license_plate.upper()
+        super(BaseModel, self).save(*args, **kwargs)
+
     def __str__(self):
         formatted_date = formats.date_format(self.date, format="l j F Y")
         return f"{self.name} - {formatted_date}"
