@@ -1,5 +1,4 @@
 SHELL := /bin/bash
-MAX_LINE_LENGTH := $(shell echo $$(tput cols))
 
 all: help
 
@@ -31,7 +30,7 @@ lint: ## Run code formatters and linter
 	poetry run flake8 .
 
 fix-code-style: ## Fix code formatting
-	poetry run black --verbose --safe --line-length=${MAX_LINE_LENGTH} --skip-string-normalization .
+	poetry run black --verbose --safe --line-length=100 --skip-string-normalization .
 	poetry run isort .
 
 tox-listenvs: check-poetry ## List all tox test environments

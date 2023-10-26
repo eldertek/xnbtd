@@ -12,6 +12,7 @@ class BreakTimeInline(GenericTabularInline):
     ct_field = "content_type"
     ct_fk_field = "object_id"
     extra = 1
+    fields = ["start_time", "end_time"]
 
 
 class BaseAdmin(admin.ModelAdmin):
@@ -22,7 +23,9 @@ class BaseAdmin(admin.ModelAdmin):
         breaks = BreakTime.objects.filter(
             content_type=ContentType.objects.get_for_model(obj), object_id=obj.id
         )
-        return ", ".join([b.time.strftime("%H:%M") for b in breaks])
+        return ", ".join(
+            [f"{b.start_time.strftime('%H:%M')} - {b.end_time.strftime('%H:%M')}" for b in breaks]
+        )
 
     display_breaks.short_description = _("Breaks")
 
@@ -40,9 +43,7 @@ class BaseAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
@@ -90,13 +91,9 @@ class GLSAdmin(BaseAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(GLSAdmin, self).formfield_for_foreignkey(
-            db_field, request, **kwargs
-        )
+        return super(GLSAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -145,13 +142,9 @@ class TNTAdmin(BaseAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(TNTAdmin, self).formfield_for_foreignkey(
-            db_field, request, **kwargs
-        )
+        return super(TNTAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -193,9 +186,7 @@ class ChronopostDeliveryAdmin(BaseAdmin):
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
-            get_data = super(ChronopostDeliveryAdmin, self).get_changeform_initial_data(
-                request
-            )
+            get_data = super(ChronopostDeliveryAdmin, self).get_changeform_initial_data(request)
             get_data["linked_user"] = request.user.pk
             return get_data
         return super(ChronopostDeliveryAdmin, self).get_changeform_initial_data(request)
@@ -203,9 +194,7 @@ class ChronopostDeliveryAdmin(BaseAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
         return super(ChronopostDeliveryAdmin, self).formfield_for_foreignkey(
             db_field, request, **kwargs
@@ -244,9 +233,7 @@ class ChronopostPickupAdmin(BaseAdmin):
 
     def get_changeform_initial_data(self, request):
         if not request.user.is_superuser:
-            get_data = super(ChronopostPickupAdmin, self).get_changeform_initial_data(
-                request
-            )
+            get_data = super(ChronopostPickupAdmin, self).get_changeform_initial_data(request)
             get_data["linked_user"] = request.user.pk
             return get_data
         return super(ChronopostPickupAdmin, self).get_changeform_initial_data(request)
@@ -254,9 +241,7 @@ class ChronopostPickupAdmin(BaseAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
         return super(ChronopostPickupAdmin, self).formfield_for_foreignkey(
             db_field, request, **kwargs
@@ -305,13 +290,9 @@ class CiblexAdmin(BaseAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if not request.user.is_superuser:
             if db_field.name == "linked_user":
-                kwargs["queryset"] = get_user_model().objects.filter(
-                    username=request.user.username
-                )
+                kwargs["queryset"] = get_user_model().objects.filter(username=request.user.username)
             return super().formfield_for_foreignkey(db_field, request, **kwargs)
-        return super(CiblexAdmin, self).formfield_for_foreignkey(
-            db_field, request, **kwargs
-        )
+        return super(CiblexAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}

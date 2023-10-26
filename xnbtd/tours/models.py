@@ -101,10 +101,11 @@ class BreakTime(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
 
-    time = models.TimeField(verbose_name=_("Pause Time"))
+    start_time = models.TimeField(verbose_name=_("Start of Break"))
+    end_time = models.TimeField(verbose_name=_("End of Break"))
 
     def __str__(self):
-        return str(_("Pause at"))
+        return str(_("Break from {} to {}")).format(self.start_time, self.end_time)
 
     class Meta:
         verbose_name = _("Break Time")
