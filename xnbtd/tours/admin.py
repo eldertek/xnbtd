@@ -78,10 +78,22 @@ class GLSAdmin(BaseAdmin):
         ("packages_delivered", _("Total Packages Delivered")),
     ]
     search_fields = [
-        'linked_user__username', 'name', 'date', 'beginning_hour', 
-        'ending_hour', 'license_plate', 'comments', 'points_charges', 
-        'points_delivered', 'packages_charges', 'packages_delivered', 
-        'avp_relay', 'shd', 'eo', 'pickup_point', 'full_km'
+        'linked_user__username',
+        'name',
+        'date',
+        'beginning_hour',
+        'ending_hour',
+        'license_plate',
+        'comments',
+        'points_charges',
+        'points_delivered',
+        'packages_charges',
+        'packages_delivered',
+        'avp_relay',
+        'shd',
+        'eo',
+        'pickup_point',
+        'full_km',
     ]
 
     def get_queryset(self, request):
@@ -136,10 +148,21 @@ class TNTAdmin(BaseAdmin):
         ("totals_clients", _("Total Clients")),
     ]
     search_fields = [
-        'linked_user__username', 'name', 'date', 'beginning_hour', 
-        'ending_hour', 'license_plate', 'client_numbers', 'refused', 
-        'avp', 'cad', 'totals_clients', 'occasional_abductions', 
-        'regular_abductions', 'totals_clients_abductions', 'kilometers'
+        'linked_user__username',
+        'name',
+        'date',
+        'beginning_hour',
+        'ending_hour',
+        'license_plate',
+        'client_numbers',
+        'refused',
+        'avp',
+        'cad',
+        'totals_clients',
+        'occasional_abductions',
+        'regular_abductions',
+        'totals_clients_abductions',
+        'kilometers',
     ]
 
     def get_queryset(self, request):
@@ -195,10 +218,22 @@ class ChronopostDeliveryAdmin(BaseAdmin):
         ("total_points", _("Total of Points")),
     ]
     search_fields = [
-        'linked_user__username', 'name', 'date', 'beginning_hour', 
-        'ending_hour', 'license_plate', 'charged_packages', 'charged_points',
-        'including_ip', 'relay', 'return_packages', 'return_points',
-        'overdue', 'anomalies', 'total_points', 'full_km'
+        'linked_user__username',
+        'name',
+        'date',
+        'beginning_hour',
+        'ending_hour',
+        'license_plate',
+        'charged_packages',
+        'charged_points',
+        'including_ip',
+        'relay',
+        'return_packages',
+        'return_points',
+        'overdue',
+        'anomalies',
+        'total_points',
+        'full_km',
     ]
 
     def get_queryset(self, request):
@@ -249,8 +284,15 @@ class ChronopostPickupAdmin(BaseAdmin):
         ("picked_points", _("Total of Picked Points")),
     ]
     search_fields = [
-        'linked_user__username', 'name', 'date', 'beginning_hour', 
-        'ending_hour', 'license_plate', 'esd', 'picked_points', 'poste'
+        'linked_user__username',
+        'name',
+        'date',
+        'beginning_hour',
+        'ending_hour',
+        'license_plate',
+        'esd',
+        'picked_points',
+        'poste',
     ]
 
     def get_queryset(self, request):
@@ -303,9 +345,19 @@ class CiblexAdmin(BaseAdmin):
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [("days", _("Total Days"))]
     search_fields = [
-        'linked_user__username', 'name', 'date', 'beginning_hour', 
-        'ending_hour', 'license_plate', 'type', 'nights', 'days', 
-        'avp', 'spare_part', 'synchro', 'morning_pickup'
+        'linked_user__username',
+        'name',
+        'date',
+        'beginning_hour',
+        'ending_hour',
+        'license_plate',
+        'type',
+        'nights',
+        'days',
+        'avp',
+        'spare_part',
+        'synchro',
+        'morning_pickup',
     ]
 
     def get_queryset(self, request):
