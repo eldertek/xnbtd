@@ -104,9 +104,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="chronopostdelivery",
             name="license_plate",
-            field=models.CharField(
-                max_length=7, verbose_name="Plaque d'immatriculation"
-            ),
+            field=models.CharField(max_length=7, verbose_name="Plaque d'immatriculation"),
         ),
         migrations.AlterField(
             model_name="chronopostdelivery",
@@ -170,9 +168,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="chronopostpickup",
             name="license_plate",
-            field=models.CharField(
-                max_length=7, verbose_name="Plaque d'immatriculation"
-            ),
+            field=models.CharField(max_length=7, verbose_name="Plaque d'immatriculation"),
         ),
         migrations.AlterField(
             model_name="chronopostpickup",
@@ -221,9 +217,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="ciblex",
             name="license_plate",
-            field=models.CharField(
-                max_length=7, verbose_name="Plaque d'immatriculation"
-            ),
+            field=models.CharField(max_length=7, verbose_name="Plaque d'immatriculation"),
         ),
         migrations.AlterField(
             model_name="ciblex",
@@ -282,9 +276,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="gls",
             name="license_plate",
-            field=models.CharField(
-                max_length=7, verbose_name="Plaque d'immatriculation"
-            ),
+            field=models.CharField(max_length=7, verbose_name="Plaque d'immatriculation"),
         ),
         migrations.AlterField(
             model_name="gls",
@@ -378,9 +370,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="tnt",
             name="license_plate",
-            field=models.CharField(
-                max_length=7, verbose_name="Plaque d'immatriculation"
-            ),
+            field=models.CharField(max_length=7, verbose_name="Plaque d'immatriculation"),
         ),
         migrations.AlterField(
             model_name="tnt",

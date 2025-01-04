@@ -12,8 +12,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="gls",
             name="packages_refused",
-            field=models.IntegerField(
-                blank=True, null=True, verbose_name="Colis refusés"
-            ),
+            field=models.IntegerField(blank=True, null=True, verbose_name="Colis refusés"),
         ),
     ]

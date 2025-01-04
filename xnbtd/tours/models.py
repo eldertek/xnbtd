@@ -30,9 +30,7 @@ class GLS(BaseModel):
     points_charges = models.IntegerField(verbose_name="Points chargés")
     points_delivered = models.IntegerField(verbose_name="Points livrés")
     packages_charges = models.IntegerField(verbose_name="Colis chargés")
-    packages_delivered = models.IntegerField(
-        verbose_name="Colis livrés"
-    )
+    packages_delivered = models.IntegerField(verbose_name="Colis livrés")
     avp_relay = models.IntegerField(verbose_name="AVP Relais")
     packages_refused = models.IntegerField(verbose_name="Colis refusés", null=True, blank=True)
     eo = models.IntegerField(verbose_name="EO")
@@ -45,7 +43,9 @@ class GLS(BaseModel):
 
 
 class SHDEntry(models.Model):
-    gls = models.ForeignKey(GLS, on_delete=models.CASCADE, related_name='shd_entries', verbose_name="Tournée GLS")
+    gls = models.ForeignKey(
+        GLS, on_delete=models.CASCADE, related_name='shd_entries', verbose_name="Tournée GLS"
+    )
     number = models.PositiveIntegerField(verbose_name="SHD", editable=False)
     value = models.IntegerField(verbose_name="valeur")
 

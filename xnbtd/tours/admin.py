@@ -27,8 +27,7 @@ class BaseAdmin(admin.ModelAdmin):
 
     def display_breaks(self, obj):
         breaks = BreakTime.objects.filter(
-            content_type=ContentType.objects.get_for_model(obj),
-            object_id=obj.id
+            content_type=ContentType.objects.get_for_model(obj), object_id=obj.id
         )
         if not breaks:
             return "-"
@@ -112,8 +111,12 @@ class GLSAdmin(BaseAdmin):
         entries = obj.shd_entries.all().order_by('number')
         if not entries:
             return "-"
-        entries_html = [f'<span style="white-space: nowrap;">SHD {entry.number} → {entry.value}</span>' for entry in entries]
+        entries_html = [
+            f'<span style="white-space: nowrap;">SHD {entry.number} → {entry.value}</span>'
+            for entry in entries
+        ]
         return mark_safe("<br>".join(entries_html))
+
     display_shd_entries.short_description = "SHD"
 
     def get_queryset(self, request):
