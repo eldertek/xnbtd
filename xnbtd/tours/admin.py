@@ -338,6 +338,7 @@ class CiblexAdmin(BaseAdmin):
         "avp",
         "spare_part",
         "synchro",
+        "relais",
         "morning_pickup",
         "beginning_hour",
         "ending_hour",
