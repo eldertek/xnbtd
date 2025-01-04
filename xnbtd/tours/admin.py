@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex
+from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex, SHDEntry
 
 
 class BreakTimeInline(GenericTabularInline):
@@ -15,6 +16,12 @@ class BreakTimeInline(GenericTabularInline):
     fields = ["start_time", "end_time"]
 
 
+class SHDEntryInline(admin.TabularInline):
+    model = SHDEntry
+    extra = 1
+    fields = ['value']
+
+
 class BaseAdmin(admin.ModelAdmin):
     inlines = [BreakTimeInline]
     change_list_template = "xnbtd/admin/change_list.html"
@@ -23,11 +30,15 @@ class BaseAdmin(admin.ModelAdmin):
         breaks = BreakTime.objects.filter(
             content_type=ContentType.objects.get_for_model(obj), object_id=obj.id
         )
-        return ", ".join(
-            [f"{b.start_time.strftime('%H:%M')} - {b.end_time.strftime('%H:%M')}" for b in breaks]
-        )
+        if not breaks:
+            return "-"
+        breaks_html = [
+            f'<span style="white-space: nowrap;">{b.start_time.strftime("%H:%M")} - {b.end_time.strftime("%H:%M")}</span>'
+            for b in breaks
+        ]
+        return mark_safe("<br>".join(breaks_html))
 
-    display_breaks.short_description = _("Breaks")
+    display_breaks.short_description = "Pauses"
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -54,28 +65,29 @@ class BaseAdmin(admin.ModelAdmin):
 
 
 class GLSAdmin(BaseAdmin):
+    inlines = [SHDEntryInline, BreakTimeInline]
     date_hierarchy = "date"
     list_display = (
         "name",
         "linked_user",
         "date",
-        "comments",
-        "display_breaks",
+        "beginning_hour",
+        "ending_hour",
         "license_plate",
         "points_charges",
         "points_delivered",
         "packages_charges",
         "packages_delivered",
         "avp_relay",
-        "shd",
+        "display_shd_entries",
         "eo",
         "pickup_point",
-        "beginning_hour",
-        "ending_hour",
+        "display_breaks",
+        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
-        ("packages_delivered", _("Total Packages Delivered")),
+        ("packages_delivered", "Total Colis livrés"),
     ]
     search_fields = [
         'linked_user__username',
@@ -90,11 +102,18 @@ class GLSAdmin(BaseAdmin):
         'packages_charges',
         'packages_delivered',
         'avp_relay',
-        'shd',
         'eo',
         'pickup_point',
         'full_km',
     ]
+
+    def display_shd_entries(self, obj):
+        entries = obj.shd_entries.all().order_by('number')
+        if not entries:
+            return "-"
+        entries_html = [f'<span style="white-space: nowrap;">SHD {entry.number} → {entry.value}</span>' for entry in entries]
+        return mark_safe("<br>".join(entries_html))
+    display_shd_entries.short_description = "SHD"
 
     def get_queryset(self, request):
         qs = super(GLSAdmin, self).get_queryset(request)
@@ -128,8 +147,8 @@ class TNTAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
-        "comments",
-        "display_breaks",
+        "beginning_hour",
+        "ending_hour",
         "license_plate",
         "client_numbers",
         "refused",
@@ -140,12 +159,12 @@ class TNTAdmin(BaseAdmin):
         "regular_abductions",
         "totals_clients_abductions",
         "kilometers",
-        "beginning_hour",
-        "ending_hour",
+        "display_breaks",
+        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
-        ("totals_clients", _("Total Clients")),
+        ("totals_clients", "Total clients"),
     ]
     search_fields = [
         'linked_user__username',
@@ -197,8 +216,8 @@ class ChronopostDeliveryAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
-        "comments",
-        "display_breaks",
+        "beginning_hour",
+        "ending_hour",
         "license_plate",
         "charged_packages",
         "charged_points",
@@ -210,12 +229,12 @@ class ChronopostDeliveryAdmin(BaseAdmin):
         "anomalies",
         "total_points",
         "full_km",
-        "beginning_hour",
-        "ending_hour",
+        "display_breaks",
+        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
-        ("total_points", _("Total of Points")),
+        ("total_points", "Total des points"),
     ]
     search_fields = [
         'linked_user__username',
@@ -270,18 +289,18 @@ class ChronopostPickupAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
-        "comments",
-        "display_breaks",
+        "beginning_hour",
+        "ending_hour",
         "license_plate",
         "esd",
         "picked_points",
         "poste",
-        "beginning_hour",
-        "ending_hour",
+        "display_breaks",
+        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
     list_statistic = [
-        ("picked_points", _("Total of Picked Points")),
+        ("picked_points", "Total des points ramassés"),
     ]
     search_fields = [
         'linked_user__username',
@@ -329,8 +348,8 @@ class CiblexAdmin(BaseAdmin):
         "name",
         "linked_user",
         "date",
-        "comments",
-        "display_breaks",
+        "beginning_hour",
+        "ending_hour",
         "license_plate",
         "type",
         "nights",
@@ -340,11 +359,13 @@ class CiblexAdmin(BaseAdmin):
         "synchro",
         "relais",
         "morning_pickup",
-        "beginning_hour",
-        "ending_hour",
+        "display_breaks",
+        "comments",
     )
     list_filter = ("date", "linked_user", "name", "license_plate")
-    list_statistic = [("days", _("Total Days"))]
+    list_statistic = [
+        ("days", "Total jours"),
+    ]
     search_fields = [
         'linked_user__username',
         'name',
