@@ -252,3 +252,6 @@ msgstr "Pause"
 #: xnbtd/tours/models.py:112
 msgid "Break Times"
 msgstr "Pauses"
+
+msgid "relais"
+msgstr "relais"
