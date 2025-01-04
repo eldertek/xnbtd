@@ -7,7 +7,7 @@ from django.utils import formats
 
 class BaseModel(models.Model):
     linked_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="livreur")
-    name = models.CharField(max_length=255, verbose_name="numéro de tournée") 
+    name = models.CharField(max_length=255, verbose_name="numéro de tournée")
     date = models.DateField(verbose_name="date")
     beginning_hour = models.TimeField(verbose_name="début de la journée")
     ending_hour = models.TimeField(verbose_name="fin de la journée")
@@ -30,7 +30,9 @@ class GLS(BaseModel):
     points_charges = models.IntegerField(verbose_name="Points chargés")
     points_delivered = models.IntegerField(verbose_name="Points livrés")
     packages_charges = models.IntegerField(verbose_name="Colis chargés")
-    packages_delivered = models.IntegerField(verbose_name="Colis livrés")
+    packages_delivered = models.IntegerField(
+        verbose_name="Colis livrés"
+    )
     avp_relay = models.IntegerField(verbose_name="AVP Relais")
     packages_refused = models.IntegerField(verbose_name="Colis refusés", null=True, blank=True)
     eo = models.IntegerField(verbose_name="EO")

@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
-from django.utils.translation import gettext_lazy as _
 
 from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex, SHDEntry
 
@@ -28,12 +27,14 @@ class BaseAdmin(admin.ModelAdmin):
 
     def display_breaks(self, obj):
         breaks = BreakTime.objects.filter(
-            content_type=ContentType.objects.get_for_model(obj), object_id=obj.id
+            content_type=ContentType.objects.get_for_model(obj),
+            object_id=obj.id
         )
         if not breaks:
             return "-"
         breaks_html = [
-            f'<span style="white-space: nowrap;">{b.start_time.strftime("%H:%M")} - {b.end_time.strftime("%H:%M")}</span>'
+            f'<span style="white-space: nowrap;">'
+            f'{b.start_time.strftime("%H:%M")} - {b.end_time.strftime("%H:%M")}</span>'
             for b in breaks
         ]
         return mark_safe("<br>".join(breaks_html))
