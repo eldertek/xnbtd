@@ -27,7 +27,8 @@ def calculate_gls_delivered_packages_price(queryset):
         exists = queryset.exists()
     except TypeError:
         # The queryset has been sliced, so we need to create a new queryset
-        print("DEBUG: Queryset has been sliced in calculate_gls_delivered_packages_price, creating a new queryset")
+        print("DEBUG: Queryset has been sliced in calculate_gls_delivered_packages_price, "
+              "creating a new queryset")
         model = queryset.model
         # Create a new queryset - we can't preserve filters, so we'll use all()
         queryset = model.objects.all()
@@ -67,7 +68,8 @@ def calculate_gls_pickup_packages_price(queryset):
         exists = queryset.exists()
     except TypeError:
         # The queryset has been sliced, so we need to create a new queryset
-        print("DEBUG: Queryset has been sliced in calculate_gls_pickup_packages_price, creating a new queryset")
+        print("DEBUG: Queryset has been sliced in calculate_gls_pickup_packages_price, "
+              "creating a new queryset")
         model = queryset.model
         # Create a new queryset - we can't preserve filters, so we'll use all()
         queryset = model.objects.all()
@@ -214,7 +216,8 @@ def calculate_gls_total_price(queryset):
         queryset.exists()
     except TypeError:
         # The queryset has been sliced, so we need to create a new queryset
-        print("DEBUG: Queryset has been sliced in calculate_gls_total_price, creating a new queryset")
+        print("DEBUG: Queryset has been sliced in calculate_gls_total_price, "
+              "creating a new queryset")
         model = queryset.model
         # Create a new queryset - we can't preserve filters, so we'll use all()
         queryset = model.objects.all()
