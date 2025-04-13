@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils.html import format_html
 
 from xnbtd.analytics.export import export_route_as_csv
+
 from .models import Expense
 
 
@@ -72,6 +73,7 @@ class ExpenseAdmin(admin.ModelAdmin):
         """Add custom actions to the change form"""
         if '_export_csv' in request.POST:
             from xnbtd.analytics.export import export_single_route_as_csv
+
             return export_single_route_as_csv(self, request, obj.pk)
         return super().response_change(request, obj)
 

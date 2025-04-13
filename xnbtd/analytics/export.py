@@ -1,4 +1,5 @@
 import csv
+
 from django.http import HttpResponse
 from django.utils import timezone
 
@@ -30,7 +31,11 @@ def export_as_csv(modeladmin, request, queryset, fields=None, exclude=None, file
         fields = [field.name for field in modeladmin.model._meta.fields]
         # Add display methods that are in list_display
         for field_name in modeladmin.list_display:
-            if field_name not in fields and field_name != '__str__' and hasattr(modeladmin, field_name):
+            if (
+                field_name not in fields
+                and field_name != '__str__'
+                and hasattr(modeladmin, field_name)
+            ):
                 fields.append(field_name)
 
     if exclude:
@@ -61,6 +66,7 @@ def export_as_csv(modeladmin, request, queryset, fields=None, exclude=None, file
                 # If the value is a SafeString (has HTML), convert to plain text
                 if hasattr(value, 'strip_tags'):
                     from django.utils.html import strip_tags
+
                     value = strip_tags(value)
             else:
                 value = getattr(obj, field, '')
@@ -84,6 +90,7 @@ def export_route_as_csv(modeladmin, request, queryset):
     filename = f"{model_name}_export_{timezone.now().strftime('%Y%m%d')}"
 
     return export_as_csv(modeladmin, request, queryset, exclude=exclude, filename=filename)
+
 
 export_route_as_csv.short_description = "Exporter en CSV"
 

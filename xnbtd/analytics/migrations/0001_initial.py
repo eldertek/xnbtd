@@ -28,28 +28,20 @@ class Migration(migrations.Migration):
                 ("title", models.CharField(max_length=255, verbose_name="Intitulé")),
                 (
                     "license_plate",
-                    models.CharField(
-                        max_length=10, verbose_name="Plaque d'immatriculation"
-                    ),
+                    models.CharField(max_length=10, verbose_name="Plaque d'immatriculation"),
                 ),
                 (
                     "amount",
-                    models.DecimalField(
-                        decimal_places=2, max_digits=10, verbose_name="Montant"
-                    ),
+                    models.DecimalField(decimal_places=2, max_digits=10, verbose_name="Montant"),
                 ),
                 ("date", models.DateField(verbose_name="Date")),
                 (
                     "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Date de création"
-                    ),
+                    models.DateTimeField(auto_now_add=True, verbose_name="Date de création"),
                 ),
                 (
                     "updated_at",
-                    models.DateTimeField(
-                        auto_now=True, verbose_name="Date de modification"
-                    ),
+                    models.DateTimeField(auto_now=True, verbose_name="Date de modification"),
                 ),
                 (
                     "linked_user",

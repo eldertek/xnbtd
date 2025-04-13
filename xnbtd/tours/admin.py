@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
 
 from xnbtd.analytics.export import export_route_as_csv, export_single_route_as_csv
+
 from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex, SHDEntry
 
 
@@ -166,15 +167,12 @@ class GLSAdmin(BaseAdmin):
 
             # Si nous avons à la fois l'année et le mois
             if 'year' in date_params and 'month' in date_params:
-                date_hierarchy_choice = {
-                    'year': date_params['year'],
-                    'month': date_params['month']
-                }
+                date_hierarchy_choice = {'year': date_params['year'], 'month': date_params['month']}
                 print(f"DEBUG: date_hierarchy_choice set to {date_hierarchy_choice}")
 
                 # Ajouter des informations sur les données GLS pour ce mois
-                from datetime import datetime
                 from calendar import monthrange
+                from datetime import datetime
 
                 try:
                     year = int(date_params['year'])

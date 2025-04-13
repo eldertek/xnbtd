@@ -1,8 +1,10 @@
-from datetime import datetime
 from calendar import monthrange
+from datetime import datetime
+
 from django import template
 from django.db.models import Sum
 from django.db.models.query import QuerySet
+
 
 register = template.Library()
 
@@ -65,7 +67,7 @@ def calculate_gls_pickup_packages_price(queryset):
     return {
         'regular_pickup_price': regular_pickup_price,
         'eo_price': eo_price,
-        'total_price': total_price
+        'total_price': total_price,
     }
 
 
@@ -171,5 +173,5 @@ def calculate_gls_total_price(queryset):
         'regular_pickup_price': pickup_prices['regular_pickup_price'],
         'eo_price': pickup_prices['eo_price'],
         'shd_price': shd_price,
-        'total_price': total_price
+        'total_price': total_price,
     }

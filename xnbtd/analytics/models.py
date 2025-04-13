@@ -7,6 +7,7 @@ class Expense(models.Model):
     """
     Model for tracking expenses
     """
+
     title = models.CharField(max_length=255, verbose_name="Intitulé")
     license_plate = models.CharField(max_length=10, verbose_name="Plaque d'immatriculation")
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Montant")
