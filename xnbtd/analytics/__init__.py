@@ -1,0 +1,3 @@
+"""
+    Analytics module for xnbtd
+"""

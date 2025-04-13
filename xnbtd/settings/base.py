@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'xnbtd.apps.XnbtdAdminConfig',
     'xnbtd.tours.apps.ToursConfig',
     'xnbtd.plannings.apps.PlanningsConfig',
+    'xnbtd.analytics.apps.AnalyticsConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -98,7 +99,7 @@ USE_TZ = True
 
 # _____________________________________________________________________________
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # _____________________________________________________________________________
 

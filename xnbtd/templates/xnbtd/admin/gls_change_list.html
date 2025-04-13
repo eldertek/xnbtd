@@ -1,0 +1,66 @@
+{% extends "xnbtd/admin/change_list.html" %}
+{% load i18n admin_list tours pricing %}
+
+{% block filters %}
+  {% if cl.has_filters %}
+    <div id="changelist-filter">
+      <h2>{% translate 'Statistic' %}</h2>
+        {% for column, label in list_statistic %}
+          {% calculate_total cl.result_list column as total %}
+          {% if total is not None %}
+            <h3>{{ label }}: {{ total }}</h3>
+          {% endif %}
+        {% endfor %}
+
+        {% comment %}We're already in the GLS template, so we know we're dealing with GLS model{% endcomment %}
+        <!-- DEBUG INFO: date_hierarchy_choice: {{ cl.date_hierarchy_choice|default:"None" }} -->
+        <!-- DEBUG INFO: request.GET: {{ request.GET }} -->
+
+        {% if request.GET.date__year and request.GET.date__month %}
+          {% with year=request.GET.date__year month=request.GET.date__month %}
+            <!-- DEBUG INFO: year: {{ year|default:"None" }}, month: {{ month|default:"None" }} -->
+              <h2>{% translate 'Pricing GLS' %} ({{ month }}/{{ year }})</h2>
+              {% get_month_gls_queryset cl.result_list year month as month_queryset %}
+              <!-- DEBUG INFO: month_queryset count: {{ month_queryset.count|default:"0" }} -->
+
+              {% calculate_gls_delivered_packages_price month_queryset as delivered_price %}
+              <!-- DEBUG INFO: delivered_price: {{ delivered_price|default:"0" }} -->
+              <h3>{% translate 'Colis livrés' %}: {{ delivered_price }} €</h3>
+
+              {% calculate_gls_pickup_packages_price month_queryset as pickup_prices %}
+              <h3>{% translate 'Colis ramassés réguliers' %}: {{ pickup_prices.regular_pickup_price }} €</h3>
+              <h3>{% translate 'Enlèvements occasionnels (EO)' %}: {{ pickup_prices.eo_price }} €</h3>
+
+              {% calculate_gls_shd_price month_queryset as shd_price %}
+              <h3>{% translate 'SHD' %}: {{ shd_price }} €</h3>
+
+              {% calculate_gls_total_price month_queryset as total_prices %}
+              <h3 style="font-weight: bold; color: #2980b9;">{% translate 'Total' %}: {{ total_prices.total_price }} €</h3>
+          {% endwith %}
+        {% endif %}
+
+      <h2>{% translate 'Filter' %}</h2>
+      {% if cl.is_facets_optional or cl.has_active_filters %}
+        <div id="changelist-filter-extra-actions">
+          {% if cl.is_facets_optional %}
+            <h3>
+              {% if cl.add_facets %}
+                <a href="{{ cl.remove_facet_link }}" class="hidelink">{% translate "Hide counts" %}</a>
+              {% else %}
+                <a href="{{ cl.add_facet_link }}" class="viewlink">{% translate "Show counts" %}</a>
+              {% endif %}
+            </h3>
+          {% endif %}
+          {% if cl.has_active_filters %}
+            <h3>
+              <a href="{{ cl.clear_all_filters_qs }}">&#10006; {% translate "Clear all filters" %}</a>
+            </h3>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% for spec in cl.filter_specs %}
+        {% admin_list_filter cl spec %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

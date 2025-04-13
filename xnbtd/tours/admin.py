@@ -4,6 +4,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
 from django.utils.safestring import mark_safe
 
+from xnbtd.analytics.export import export_route_as_csv, export_single_route_as_csv
 from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex, SHDEntry
 
 
@@ -24,6 +25,8 @@ class SHDEntryInline(admin.TabularInline):
 class BaseAdmin(admin.ModelAdmin):
     inlines = [BreakTimeInline]
     change_list_template = "xnbtd/admin/change_list.html"
+    change_form_template = "xnbtd/admin/change_form.html"
+    actions = [export_route_as_csv]
 
     def display_breaks(self, obj):
         breaks = BreakTime.objects.filter(
@@ -62,6 +65,12 @@ class BaseAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context["list_statistic"] = self.list_statistic
         return super().changelist_view(request, extra_context=extra_context)
+
+    def response_change(self, request, obj):
+        """Add custom actions to the change form"""
+        if '_export_csv' in request.POST:
+            return export_single_route_as_csv(self, request, obj.pk)
+        return super().response_change(request, obj)
 
 
 class GLSAdmin(BaseAdmin):
@@ -140,9 +149,54 @@ class GLSAdmin(BaseAdmin):
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         extra_context["list_statistic"] = self.list_statistic
+
+        # Get date hierarchy information if available
+        date_hierarchy_choice = None
+        if self.date_hierarchy:
+            # Récupérer tous les paramètres GET
+            print(f"DEBUG: all GET params: {request.GET}")
+
+            # Vérifier tous les paramètres pour trouver ceux liés à la hiérarchie de dates
+            date_params = {}
+            for key, value in request.GET.items():
+                if key.startswith(f'{self.date_hierarchy}__'):
+                    date_part = key.split('__')[1]  # Extraire 'year', 'month', etc.
+                    date_params[date_part] = value
+                    print(f"DEBUG: Found date param: {date_part} = {value}")
+
+            # Si nous avons à la fois l'année et le mois
+            if 'year' in date_params and 'month' in date_params:
+                date_hierarchy_choice = {
+                    'year': date_params['year'],
+                    'month': date_params['month']
+                }
+                print(f"DEBUG: date_hierarchy_choice set to {date_hierarchy_choice}")
+
+                # Ajouter des informations sur les données GLS pour ce mois
+                from datetime import datetime
+                from calendar import monthrange
+
+                try:
+                    year = int(date_params['year'])
+                    month = int(date_params['month'])
+
+                    start_date = datetime(year, month, 1).date()
+                    _, last_day = monthrange(year, month)
+                    end_date = datetime(year, month, last_day).date()
+
+                    # Obtenir les données GLS pour ce mois
+                    gls_data = self.model.objects.filter(date__gte=start_date, date__lte=end_date)
+                    print(f"DEBUG: Found {gls_data.count()} GLS entries for {month}/{year}")
+
+                    # Ajouter ces informations au contexte
+                    extra_context['gls_month_data'] = gls_data
+                except (ValueError, TypeError) as e:
+                    print(f"DEBUG: Error processing date params: {e}")
+
+        extra_context['date_hierarchy_choice'] = date_hierarchy_choice
         return super().changelist_view(request, extra_context=extra_context)
 
-    change_list_template = "xnbtd/admin/change_list.html"
+    change_list_template = "xnbtd/admin/gls_change_list.html"
 
 
 class TNTAdmin(BaseAdmin):
