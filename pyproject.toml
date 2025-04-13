@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xnbtd"
-version = "2.0.1"
+version = "2.0.2"
 description = "xNBTD est une application de gestion pour entreprise de livraison. Elle facilite la gestion des tournées et des plannings."
 authors = [
     "André Théo LAURET <andrelauret@eclipse-technology.eu>",
@@ -16,12 +16,30 @@ packages = [{ include = "xnbtd" }]
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/eldertek/xnbtd/issues"
 
+[project]
+name = "xnbtd"
+version = "2.0.2"
+description = "xNBTD est une application de gestion pour entreprise de livraison. Elle facilite la gestion des tournées et des plannings."
+readme = 'README.md'
+license = {text = "GPL-3.0-or-later"}
+authors = [
+    {name = "André Théo LAURET", email = "andrelauret@eclipse-technology.eu"},
+]
+maintainers = [
+    {name = "André Théo LAURET", email = "andrelauret@eclipse-technology.eu"},
+]
+dynamic = ["version", "readme"]
+
+[project.urls]
+homepage = "https://github.com/eldertek/xnbtd"
+"Bug Tracker" = "https://github.com/eldertek/xnbtd/issues"
+
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)
 pip = "^23.1.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 django_yunohost_integration = "*"  # https://github.com/YunoHost-Apps/django_yunohost_integration
 bx_py_utils = "*"  # https://github.com/boxine/bx_py_utils
 django-tools = "*"  # https://github.com/jedie/django-tools/
@@ -34,13 +52,19 @@ EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
 safety = "*"  # https://github.com/pyupio/safety
 requests = "*"  # https://github.com/psf/requests
 packaging = "*"  # https://github.com/pypa/packaging
-poetry-publish = '*'  # https://github.com/jedie/poetry-publish
+# poetry-publish removed due to compatibility issues with Python 3.13
 beautifulsoup4 = "*"  # https://pypi.org/project/beautifulsoup4/
 mypy = "*"  # https://github.com/python/mypy
+twine = ">=4.0.2"  # Updated version that works with Python 3.13
 
 
 [tool.poetry.scripts]
 publish = "xnbtd.publish:publish"
+xnbtd-publish = "xnbtd.publish:main"
+
+[project.scripts]
+publish = "xnbtd.publish:publish"
+xnbtd-publish = "xnbtd.publish:main"
 
 
 [build-system]

@@ -21,7 +21,19 @@ def calculate_gls_delivered_packages_price(queryset):
     Returns:
         float: The total price for delivered packages
     """
-    if not queryset.exists():
+    # Check if the queryset has been sliced
+    try:
+        # This will raise an exception if the queryset has been sliced
+        exists = queryset.exists()
+    except TypeError:
+        # The queryset has been sliced, so we need to create a new queryset
+        print("DEBUG: Queryset has been sliced in calculate_gls_delivered_packages_price, creating a new queryset")
+        model = queryset.model
+        # Create a new queryset - we can't preserve filters, so we'll use all()
+        queryset = model.objects.all()
+        exists = queryset.exists()
+
+    if not exists:
         return 0
 
     # Get the total number of delivered packages for the month
@@ -49,7 +61,19 @@ def calculate_gls_pickup_packages_price(queryset):
     Returns:
         dict: A dictionary with regular_pickup_price, eo_price, and total_price
     """
-    if not queryset.exists():
+    # Check if the queryset has been sliced
+    try:
+        # This will raise an exception if the queryset has been sliced
+        exists = queryset.exists()
+    except TypeError:
+        # The queryset has been sliced, so we need to create a new queryset
+        print("DEBUG: Queryset has been sliced in calculate_gls_pickup_packages_price, creating a new queryset")
+        model = queryset.model
+        # Create a new queryset - we can't preserve filters, so we'll use all()
+        queryset = model.objects.all()
+        exists = queryset.exists()
+
+    if not exists:
         return {'regular_pickup_price': 0, 'eo_price': 0, 'total_price': 0}
 
     # Get the total number of regular pickup packages
@@ -84,7 +108,19 @@ def calculate_gls_shd_price(queryset):
     Returns:
         float: The total price for SHD entries
     """
-    if not queryset.exists():
+    # Check if the queryset has been sliced
+    try:
+        # This will raise an exception if the queryset has been sliced
+        exists = queryset.exists()
+    except TypeError:
+        # The queryset has been sliced, so we need to create a new queryset
+        print("DEBUG: Queryset has been sliced in calculate_gls_shd_price, creating a new queryset")
+        model = queryset.model
+        # Create a new queryset - we can't preserve filters, so we'll use all()
+        queryset = model.objects.all()
+        exists = queryset.exists()
+
+    if not exists:
         return 0
 
     total_price = 0
@@ -125,10 +161,10 @@ def get_month_gls_queryset(queryset, year, month):
         month = int(month)
         if month < 1 or month > 12:
             print(f"DEBUG: Invalid month value: {month}")
-            return queryset.none()
+            return queryset.model.objects.none()
     except (ValueError, TypeError) as e:
         print(f"DEBUG: Error converting year/month to int: {e}")
-        return queryset.none()
+        return queryset.model.objects.none()
 
     # Get the start and end dates for the month
     start_date = datetime(year, month, 1).date()
@@ -136,13 +172,28 @@ def get_month_gls_queryset(queryset, year, month):
     end_date = datetime(year, month, last_day).date()
 
     print(f"DEBUG: Filtering GLS queryset from {start_date} to {end_date}")
-    print(f"DEBUG: Original queryset count: {queryset.count()}")
 
-    # Filter the queryset
-    filtered_queryset = queryset.filter(date__gte=start_date, date__lte=end_date)
-    print(f"DEBUG: Filtered queryset count: {filtered_queryset.count()}")
+    # Check if the queryset has been sliced
+    try:
+        # This will raise an exception if the queryset has been sliced
+        queryset.count()
 
-    return filtered_queryset
+        # If we get here, the queryset hasn't been sliced, so we can filter it
+        print(f"DEBUG: Original queryset count: {queryset.count()}")
+        filtered_queryset = queryset.filter(date__gte=start_date, date__lte=end_date)
+        print(f"DEBUG: Filtered queryset count: {filtered_queryset.count()}")
+        return filtered_queryset
+    except TypeError:
+        # The queryset has been sliced, so we need to create a new queryset
+        print("DEBUG: Queryset has been sliced, creating a new queryset")
+        model = queryset.model
+        # Create a new queryset with the same filters as the original
+        new_queryset = model.objects.all()
+
+        # Apply the date filter
+        filtered_queryset = new_queryset.filter(date__gte=start_date, date__lte=end_date)
+        print(f"DEBUG: Filtered queryset count: {filtered_queryset.count()}")
+        return filtered_queryset
 
 
 @register.simple_tag
@@ -157,6 +208,17 @@ def calculate_gls_total_price(queryset):
     Returns:
         dict: A dictionary with detailed pricing information
     """
+    # Check if the queryset has been sliced
+    try:
+        # This will raise an exception if the queryset has been sliced
+        queryset.exists()
+    except TypeError:
+        # The queryset has been sliced, so we need to create a new queryset
+        print("DEBUG: Queryset has been sliced in calculate_gls_total_price, creating a new queryset")
+        model = queryset.model
+        # Create a new queryset - we can't preserve filters, so we'll use all()
+        queryset = model.objects.all()
+
     delivered_price = calculate_gls_delivered_packages_price(queryset)
 
     pickup_prices = calculate_gls_pickup_packages_price(queryset)

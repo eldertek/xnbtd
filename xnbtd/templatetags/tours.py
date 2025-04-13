@@ -20,11 +20,23 @@ def calculate_total(queryset, column):
         float or None: The total of the column rounded to two decimal places,
         or None if the total is None.
     """
-    if queryset.exists():
+    # Check if the queryset has been sliced
+    try:
+        # This will raise an exception if the queryset has been sliced
+        exists = queryset.exists()
+    except TypeError:
+        # The queryset has been sliced, so we need to create a new queryset
+        print("DEBUG: Queryset has been sliced in calculate_total, creating a new queryset")
+        model = queryset.model
+        # Create a new queryset - we can't preserve filters, so we'll use all()
+        queryset = model.objects.all()
+        exists = queryset.exists()
+
+    if exists:
         model_class = queryset.model
         field_type = model_class._meta.get_field(column).get_internal_type()
 
-        if field_type in ("IntegerField", "FloatField"):
+        if field_type in ("IntegerField", "FloatField", "DecimalField"):
             total = queryset.aggregate(total=Sum(column)).get("total")
             return round(total, 2) if total is not None else None
         elif field_type == "TimeField":
