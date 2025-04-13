@@ -3,7 +3,6 @@ from datetime import datetime
 
 from django import template
 from django.db.models import Sum
-from django.db.models.query import QuerySet
 
 
 register = template.Library()

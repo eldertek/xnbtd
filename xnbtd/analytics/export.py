@@ -21,7 +21,9 @@ def export_as_csv(modeladmin, request, queryset, fields=None, exclude=None, file
     """
     if not filename:
         meta = modeladmin.model._meta
-        filename = f"{meta.verbose_name_plural.lower().replace(' ', '_')}_{timezone.now().strftime('%Y%m%d')}"
+        model_name = meta.verbose_name_plural.lower().replace(' ', '_')
+        date_str = timezone.now().strftime('%Y%m%d')
+        filename = f"{model_name}_{date_str}"
 
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
@@ -51,7 +53,7 @@ def export_as_csv(modeladmin, request, queryset, fields=None, exclude=None, file
         else:
             try:
                 header.append(modeladmin.model._meta.get_field(field).verbose_name)
-            except:
+            except Exception:
                 header.append(field)
 
     writer.writerow(header)
