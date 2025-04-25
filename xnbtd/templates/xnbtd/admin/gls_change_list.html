@@ -20,22 +20,29 @@
           {% with year=request.GET.date__year month=request.GET.date__month %}
             <!-- DEBUG INFO: year: {{ year|default:"None" }}, month: {{ month|default:"None" }} -->
               <h2>{% translate 'Pricing GLS' %} ({{ month }}/{{ year }})</h2>
-              {% get_month_gls_queryset cl.result_list year month as month_queryset %}
-              <!-- DEBUG INFO: month_queryset count: {{ month_queryset.count|default:"0" }} -->
 
-              {% calculate_gls_delivered_packages_price month_queryset as delivered_price %}
-              <!-- DEBUG INFO: delivered_price: {{ delivered_price|default:"0" }} -->
-              <h3>{% translate 'Colis livrés' %}: {{ delivered_price }} €</h3>
+              {% if request.user.is_superuser or perms.analytics.view_financial_data %}
+                {% get_month_gls_queryset cl.result_list year month as month_queryset %}
+                <!-- DEBUG INFO: month_queryset count: {{ month_queryset.count|default:"0" }} -->
 
-              {% calculate_gls_pickup_packages_price month_queryset as pickup_prices %}
-              <h3>{% translate 'Colis ramassés réguliers' %}: {{ pickup_prices.regular_pickup_price }} €</h3>
-              <h3>{% translate 'Enlèvements occasionnels (EO)' %}: {{ pickup_prices.eo_price }} €</h3>
+                {% calculate_gls_delivered_packages_price month_queryset as delivered_price %}
+                <!-- DEBUG INFO: delivered_price: {{ delivered_price|default:"0" }} -->
+                <h3>{% translate 'Colis livrés' %}: {{ delivered_price }} €</h3>
 
-              {% calculate_gls_shd_price month_queryset as shd_price %}
-              <h3>{% translate 'SHD' %}: {{ shd_price }} €</h3>
+                {% calculate_gls_pickup_packages_price month_queryset as pickup_prices %}
+                <h3>{% translate 'Colis ramassés réguliers' %}: {{ pickup_prices.regular_pickup_price }} €</h3>
+                <h3>{% translate 'Enlèvements occasionnels (EO)' %}: {{ pickup_prices.eo_price }} €</h3>
 
-              {% calculate_gls_total_price month_queryset as total_prices %}
-              <h3 style="font-weight: bold; color: #2980b9;">{% translate 'Total' %}: {{ total_prices.total_price }} €</h3>
+                {% calculate_gls_shd_price month_queryset as shd_price %}
+                <h3>{% translate 'SHD' %}: {{ shd_price }} €</h3>
+
+                {% calculate_gls_total_price month_queryset as total_prices %}
+                <h3 style="font-weight: bold; color: #2980b9;">{% translate 'Total' %}: {{ total_prices.total_price }} €</h3>
+              {% else %}
+                <div class="restricted-info">
+                  <p><em>{% translate 'Ces informations financières sont réservées aux administrateurs et aux utilisateurs disposant des permissions adéquates.' %}</em></p>
+                </div>
+              {% endif %}
           {% endwith %}
         {% endif %}
 

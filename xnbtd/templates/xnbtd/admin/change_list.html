@@ -4,11 +4,19 @@
 {% block filters %}
   {% if cl.has_filters %}
     <div id="changelist-filter">
-      <h2>{% translate 'Statistic' %}</h2>  
+      <h2>{% translate 'Statistic' %}</h2>
         {% for column, label in list_statistic %}
           {% calculate_total cl.result_list column as total %}
           {% if total is not None %}
-            <h3>{{ label }}: {{ total }}</h3>
+            {% if 'Total des dépenses' in label %}
+              {% if request.user.is_superuser or perms.analytics.view_financial_data %}
+                <h3>{{ label }}: {{ total }}</h3>
+              {% else %}
+                <h3>{{ label }}: <em>{% translate 'Restricted information' %}</em></h3>
+              {% endif %}
+            {% else %}
+              <h3>{{ label }}: {{ total }}</h3>
+            {% endif %}
           {% endif %}
         {% endfor %}
       <h2>{% translate 'Filter' %}</h2>

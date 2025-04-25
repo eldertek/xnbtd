@@ -31,3 +31,6 @@ class Expense(models.Model):
         verbose_name = "Dépense"
         verbose_name_plural = "Dépenses"
         ordering = ['-date']
+        permissions = [
+            ("view_financial_data", "Can view financial data and pricing information"),
+        ]
