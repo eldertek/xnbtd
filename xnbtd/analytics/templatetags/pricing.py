@@ -227,15 +227,12 @@ def calculate_gls_total_price(queryset):
     pickup_prices = calculate_gls_pickup_packages_price(queryset)
     pickup_price = pickup_prices['total_price']
 
-    shd_price = calculate_gls_shd_price(queryset)
-
-    total_price = round(delivered_price + pickup_price + shd_price, 2)
+    total_price = round(delivered_price + pickup_price, 2)
 
     return {
         'delivered_price': delivered_price,
         'pickup_price': pickup_price,
         'regular_pickup_price': pickup_prices['regular_pickup_price'],
         'eo_price': pickup_prices['eo_price'],
-        'shd_price': shd_price,
         'total_price': total_price,
     }

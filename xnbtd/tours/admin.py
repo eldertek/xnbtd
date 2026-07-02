@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 
 from xnbtd.analytics.export import export_route_as_csv, export_single_route_as_csv
 
-from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex, SHDEntry
+from .models import GLS, TNT, BreakTime, ChronopostDelivery, ChronopostPickup, Ciblex
 
 
 class BreakTimeInline(GenericTabularInline):
@@ -15,12 +15,6 @@ class BreakTimeInline(GenericTabularInline):
     ct_fk_field = "object_id"
     extra = 1
     fields = ["start_time", "end_time"]
-
-
-class SHDEntryInline(admin.TabularInline):
-    model = SHDEntry
-    extra = 1
-    fields = ['value']
 
 
 class BaseAdmin(admin.ModelAdmin):
@@ -75,7 +69,7 @@ class BaseAdmin(admin.ModelAdmin):
 
 
 class GLSAdmin(BaseAdmin):
-    inlines = [SHDEntryInline, BreakTimeInline]
+    inlines = [BreakTimeInline]
     date_hierarchy = "date"
     list_display = (
         "name",
@@ -88,9 +82,8 @@ class GLSAdmin(BaseAdmin):
         "points_delivered",
         "packages_charges",
         "packages_delivered",
-        "avp_relay",
-        "display_shd_entries",
         "eo",
+        "picked_points",
         "pickup_point",
         "display_breaks",
         "comments",
@@ -111,23 +104,11 @@ class GLSAdmin(BaseAdmin):
         'points_delivered',
         'packages_charges',
         'packages_delivered',
-        'avp_relay',
         'eo',
+        'picked_points',
         'pickup_point',
         'full_km',
     ]
-
-    def display_shd_entries(self, obj):
-        entries = obj.shd_entries.all().order_by('number')
-        if not entries:
-            return "-"
-        entries_html = [
-            f'<span style="white-space: nowrap;">SHD {entry.number} → {entry.value}</span>'
-            for entry in entries
-        ]
-        return mark_safe("<br>".join(entries_html))
-
-    display_shd_entries.short_description = "SHD"
 
     def get_queryset(self, request):
         qs = super(GLSAdmin, self).get_queryset(request)

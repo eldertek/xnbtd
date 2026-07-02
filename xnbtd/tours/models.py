@@ -31,9 +31,13 @@ class GLS(BaseModel):
     points_delivered = models.IntegerField(verbose_name="Points livrés")
     packages_charges = models.IntegerField(verbose_name="Colis chargés")
     packages_delivered = models.IntegerField(verbose_name="Colis livrés")
-    avp_relay = models.IntegerField(verbose_name="AVP Relais")
+    # masqué de l'UI, colonne et données conservées en base
+    avp_relay = models.IntegerField(
+        verbose_name="AVP Relais", null=True, blank=True, editable=False
+    )
     packages_refused = models.IntegerField(verbose_name="Colis refusés", null=True, blank=True)
     eo = models.IntegerField(verbose_name="EO")
+    picked_points = models.IntegerField(verbose_name="Points ramassés", null=True, blank=True)
     pickup_point = models.IntegerField(verbose_name="Colis ramassés")
     full_km = models.IntegerField(verbose_name="Plein / KM")
 
