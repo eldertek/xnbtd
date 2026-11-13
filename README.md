@@ -43,3 +43,8 @@ Nous accueillons les contributions à xNBTD ! Si vous souhaitez contribuer, veui
 Si vous avez besoin d'aide avec xNBTD, veuillez ouvrir une issue sur le dépôt. Nous ferons de notre mieux pour vous aider.
 
 Droits d'auteur (c) 2023 André Théo LAURET - Tous droits réservés
+
+## Commercial Support & Custom Integration
+
+Need custom features, enterprise integration, or priority support?
+Maintained by **[Eclipse Technology](https://eclipse-technology.eu)** ([contact@eclipse-technology.eu](mailto:contact@eclipse-technology.eu)).
