@@ -44,6 +44,11 @@ Si vous avez besoin d'aide avec xNBTD, veuillez ouvrir une issue sur le dépôt.
 
 Droits d'auteur (c) 2023 André Théo LAURET - Tous droits réservés
 
+## Sécurité et exploitation
+
+- Configurez `SECRET_KEY`, `ALLOWED_HOSTS` et les accès base de données hors dépôt git (`DEBUG = False` en production).
+- Vérifiez régulièrement les dépendances avec `make safety` ou `pip-audit` avant mise en production.
+
 ## Commercial Support & Custom Integration
 
 Need custom features, enterprise integration, or priority support?
